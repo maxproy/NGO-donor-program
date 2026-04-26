@@ -131,8 +131,8 @@ For questions, issues, or suggestions, please:
 
 ## 👨‍💻 Author
 
-**maxproy** - [GitHub Profile](https://github.com/maxproy)
-**collinsssm** - [Github Profile](https://github.com/collinssswm)
+**maxproy** - [GitHub Profile](https://github.com/maxproy) <br>
+**collinsssm** - [Github Profile](https://github.com/collinssswm)<br>
 **sally-m-muthoni** - [Github Profile](https://github.com/sally-m-muthoni)
 ---
 
