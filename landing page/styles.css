@@ -53,11 +53,17 @@ body {
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
-  border: none;
+  border: 0;
+  appearance: none;
+  box-shadow: none;
   cursor: pointer;
   font-size: 15px;
   transition: 0.3s;
   margin: 5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn:hover {
@@ -68,22 +74,27 @@ body {
 /*  DROPDOWN  */
 .dropdown {
   position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 35px;
+  top: 100%;
+  left: 0;
   background: white;
   padding: 12px;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   min-width: 160px;
+  z-index: 1500;
 }
 
 .dropdown-content div {
   padding: 8px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .dropdown-content div:hover {
@@ -91,6 +102,14 @@ body {
 }
 
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.dropdown-content:hover {
   display: block;
 }
 
@@ -181,7 +200,12 @@ h2 {
 
 /*  SECTION IMAGE  */
 .section-img {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center;
   border-radius: 12px;
   margin-top: 20px;
 }
@@ -209,4 +233,54 @@ footer {
     gap: 12px;
     font-size: 14px;
   }
+}
+/* ================= MENU ICON ================= */
+.menu-icon {
+  font-size: 26px;
+  cursor: pointer;
+  display: none;
+  color: #1f7a4c;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+
+  width: 250px;
+  height: 100%;
+
+  background: #1f7a4c;
+  color: white;
+
+  padding: 20px;
+
+  transition: 0.3s;
+  z-index: 2000;
+}
+
+.sidebar a {
+  display: block;
+  margin: 20px 0;
+  color: white;
+  cursor: pointer;
+}
+
+.close-btn {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .nav-links {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
 }
