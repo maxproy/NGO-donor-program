@@ -25,12 +25,27 @@
   <!-- Desktop navigation links -->
   <div class="nav-links">
     <span onclick="scrollToSection('who')">Who We Are</span>
-    <!-- What We Do section shows our programs with donation options -->
-    <span onclick="scrollToSection('what')">What We Do</span>
+
+    <!-- What We Do dropdown menu with program shortcuts -->
+    <div class="dropdown">
+      <span onclick="scrollToSection('what')">What We Do</span>
+      <div class="dropdown-content">
+        <div onclick="scrollToSection('what')">Programs</div>
+        <div onclick="scrollToSection('donate')">Donate</div>
+      </div>
+    </div>
+
+    <!-- Get Involved dropdown menu with account actions -->
+    <div class="dropdown">
+      <span onclick="scrollToSection('involved')">Get Involved</span>
+      <div class="dropdown-content">
+        <div onclick="scrollToSection('involved')">Login</div>
+        <div onclick="scrollToSection('involved')">Sign Up</div>
+      </div>
+    </div>
+
     <span onclick="scrollToSection('where')">Where We Work</span>
-    <span onclick="scrollToSection('involved')">Get Involved</span>
-    <!-- Donate button leads to the programs section where users can donate to specific causes -->
-    <span class="btn" onclick="scrollToSection('what')">Donate</span>
+
   </div>
 
 </nav>
@@ -117,9 +132,9 @@
   </p>
 
   <!-- Team image -->
-  <img class="section-img"
-       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsnekEELkaKNNv0h18hXDozxhIh46wOjaHFA&s"
-       alt="Team meeting and collaboration">
+    <img class="section-img"
+      src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
+      alt="Team meeting and collaboration">
 
   <!-- Team section with information about our team -->
   <div id="team">

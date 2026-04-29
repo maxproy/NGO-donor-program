@@ -74,22 +74,27 @@ body {
 /*  DROPDOWN  */
 .dropdown {
   position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 35px;
+  top: 100%;
+  left: 0;
   background: white;
   padding: 12px;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   min-width: 160px;
+  z-index: 1500;
 }
 
 .dropdown-content div {
   padding: 8px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .dropdown-content div:hover {
@@ -97,6 +102,14 @@ body {
 }
 
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.dropdown-content:hover {
   display: block;
 }
 
@@ -190,8 +203,9 @@ h2 {
   display: block;
   width: 100%;
   max-width: 100%;
-  max-height: 420px;
+  height: 420px;
   object-fit: cover;
+  object-position: center;
   border-radius: 12px;
   margin-top: 20px;
 }
