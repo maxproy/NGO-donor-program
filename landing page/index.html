@@ -3,43 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NGO Project</title>
+  <title>NGO Project - Making a Difference in East Africa</title>
 
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!--  NAVBAR  -->
+<!-- ===== NAVIGATION BAR ===== -->
+<!-- Main navigation bar with logo, menu icon, and navigation links -->
 <nav class="navbar">
 
-  <div class="logo">NGO Project</div>
+  <!-- Logo section -->
+  <div class="logo">NGO Impact</div>
 
+  <!-- Hamburger menu icon for mobile/tablet view -->
+  <div class="menu-icon" onclick="toggleMenu()">
+    ☰
+  </div>
+
+  <!-- Desktop navigation links -->
   <div class="nav-links">
-
-    <div class="dropdown">
-      <span>Who We Are</span>
-      <div class="dropdown-content">
-        <div onclick="scrollToSection('who')">About Us</div>
-        <div onclick="scrollToSection('team')">Meet the Team</div>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <span>What We Do</span>
-      <div class="dropdown-content">
-        <div onclick="scrollToSection('what')">Programs</div>
-      </div>
-    </div>
-
+    <span onclick="scrollToSection('who')">Who We Are</span>
+    <!-- What We Do section shows our programs with donation options -->
+    <span onclick="scrollToSection('what')">What We Do</span>
     <span onclick="scrollToSection('where')">Where We Work</span>
     <span onclick="scrollToSection('involved')">Get Involved</span>
-    <span class="btn" onclick="scrollToSection('donate')">Donate</span>
-
+    <!-- Donate button leads to the programs section where users can donate to specific causes -->
+    <span class="btn" onclick="scrollToSection('what')">Donate</span>
   </div>
+
 </nav>
 
-<!--  HERO  -->
+<!-- ===== SIDEBAR MENU ===== -->
+<!-- Mobile menu sidebar that appears when hamburger menu is clicked -->
+<div class="sidebar" id="sidebar">
+
+  <!-- Close button for the sidebar -->
+  <span class="close-btn" onclick="toggleMenu()">✖</span>
+
+  <!-- Mobile navigation links -->
+  <a onclick="scrollToSection('who')">Who We Are</a>
+  <a onclick="scrollToSection('what')">What We Do</a>
+  <a onclick="scrollToSection('where')">Where We Work</a>
+  <a onclick="scrollToSection('involved')">Get Involved</a>
+  <!-- Donate button leads to the programs section where users can donate to specific causes -->
+  <a class="btn" onclick="scrollToSection('what')">Donate</a>
+
+</div>
+
+<!--  HERO SECTION  -->
+<!-- Main hero banner with primary call-to-action buttons -->
 <section class="hero">
 
   <h1>Changing Lives Through Education, Health & Hope</h1>
@@ -49,30 +63,37 @@
     education, healthcare, and emergency relief to vulnerable communities.
   </p>
 
+  <!-- Primary action buttons for donations and volunteering -->
   <div>
-    <button class="btn" onclick="scrollToSection('donate')">Donate Now</button>
+    <!-- Donate Now button leads to program-specific donation options -->
+    <button class="btn" onclick="scrollToSection('what')">Donate Now</button>
     <button class="btn" onclick="scrollToSection('involved')">Become a Volunteer</button>
   </div>
 
 </section>
 
 <!--  IMPACT SECTION  -->
+<!-- Statistics grid showing the NGO's impact metrics -->
 <section>
 
   <h2>Our Impact</h2>
 
+  <!-- Grid layout displaying impact metrics -->
   <div class="grid">
 
+    <!-- Metric 1: Communities Reached -->
     <div class="card">
       <h3>12+</h3>
       <p>Communities Reached</p>
     </div>
 
+    <!-- Metric 2: Lives Impacted -->
     <div class="card">
       <h3>5,000+</h3>
       <p>Lives Impacted</p>
     </div>
 
+    <!-- Metric 3: Active Countries -->
     <div class="card">
       <h3>3</h3>
       <p>Active Countries</p>
@@ -83,23 +104,29 @@
 </section>
 
 <!--  WHO WE ARE  -->
+<!-- Section about the organization's mission and values -->
 <section id="who">
 
   <h2>Who We Are</h2>
 
+  <!-- Mission statement and organizational overview -->
   <p class="text-block">
     We are a community-driven humanitarian organization focused on long-term impact.
     Our mission is to empower vulnerable populations with access to basic needs,
     education, and sustainable development programs.
   </p>
 
+  <!-- Team image -->
   <img class="section-img"
-       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsnekEELkaKNNv0h18hXDozxhIh46wOjaHFA&s">
+       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsnekEELkaKNNv0h18hXDozxhIh46wOjaHFA&s"
+       alt="Team meeting and collaboration">
 
+  <!-- Team section with information about our team -->
   <div id="team">
 
     <h3>Meet the Team</h3>
 
+    <!-- Description of team composition and mission -->
     <p class="text-block">
       Our team consists of passionate developers and field workers building systems
       that connect donors directly to real communities in need.
@@ -125,6 +152,8 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnlO4lkpbWUjT1wcf0VzKQzuJhhMpXga3TAg&s">
       <h3>Child Protection</h3>
       <p>Ensuring safety, rights, and care for vulnerable children.</p>
+      <!-- Donation button for this specific program -->
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="alert('Donate to Child Protection Program')">Donate to This Course</button>
     </div>
 
     <div class="card">
@@ -137,12 +166,16 @@
       <img src="https://images.unsplash.com/photo-1588072432836-e10032774350">
       <h3>Education</h3>
       <p>Supporting schools, learning materials, and teachers.</p>
+      <!-- Donation button for this specific program -->
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="alert('Donate to Education Program')">Donate to This Course</button>
     </div>
 
     <div class="card">
       <img src="https://images.unsplash.com/photo-1584515933487-779824d29309">
       <h3>Health & Nutrition</h3>
       <p>Improving access to medical care and nutrition programs.</p>
+      <!-- Donation button for this specific program -->
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="alert('Donate to Health & Nutrition Program')">Donate to This Course</button>
     </div>
 
   </div>
@@ -167,6 +200,7 @@
 </section>
 
 <!--  GET INVOLVED  -->
+<!-- Call-to-action section for users to join the cause -->
 <section id="involved">
 
   <h2>Get Involved</h2>
@@ -175,6 +209,12 @@
     Join us in making a difference. Whether through volunteering, partnerships,
     or support, every contribution matters.
   </p>
+
+  <!-- Login and Signup buttons for volunteers and supporters -->
+  <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+    <button class="btn" onclick="window.location.href='login.html'">Login</button>
+    <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
+  </div>
 
 </section>
 
