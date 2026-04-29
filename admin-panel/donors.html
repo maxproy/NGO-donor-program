@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>GreenFund</h2>
+    <ul>
+      <li><a href="admin.html">Dashboard</a></li>
+        <li><a href="donors.html">Donors</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="messages.html">Messages</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- PAGE-SPECIFIC CONTENT -->
+     <h1>Donor Management</h1>
+     <input type="text" id="searchDonor" placeholder="Search donors...">
+
+<!-- Add Donor Form -->
+<div class="form-container">
+  <h3>Add / Edit Donor</h3>
+  <form id="donorForm">
+    <input type="hidden" id="donorId">
+
+    <input type="text" id="donorName" placeholder="Full Name" required>
+    <input type="email" id="donorEmail" placeholder="Email" required>
+    <input type="text" id="donorPhone" placeholder="Phone Number" required>
+
+    <button type="submit">Save Donor</button>
+  </form>
+</div>
+
+<!-- Donor Table -->
+<div class="table-section">
+  <h3>All Donors</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="donorTable"></tbody>
+  </table>
+</div>
+  </main>
+
+</div>
+<script src="data.js"></script>
+<script src="donors.js"></script>
+</body>
+</html>
