@@ -32,3 +32,14 @@ sections.forEach(section => {
   section.style.transition = "0.8s ease-out";
   observer.observe(section);
 });
+/* ================= SIDEBAR TOGGLE ================= */
+
+function toggleMenu() {
+  const sidebar = document.getElementById("sidebar");
+
+  if (sidebar.style.right === "0px") {
+    sidebar.style.right = "-250px";
+  } else {
+    sidebar.style.right = "0px";
+  }
+}
