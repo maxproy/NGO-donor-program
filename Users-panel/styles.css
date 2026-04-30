@@ -47,7 +47,14 @@ body {
   font-weight: 500;
   transition: 0.3s;
 }
-
+.nav-links .admin-btn {
+  background: #ffff;
+  padding: 8px 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor:pointer;
+}
 .nav-links span {
   cursor: pointer;
   color: white; 
@@ -249,6 +256,7 @@ footer {
 
 .sidebar a {
   display: block;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 20px 0;
   color: white;
   cursor: pointer;

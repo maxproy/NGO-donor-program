@@ -1,6 +1,6 @@
 :root {
-  --primary-green: #2ecc71;
-  --dark-green: #27ae60;
+  --primary-green: #1f7a4c;
+  --dark-green: #1f7a4c;
   --light-green: #eafaf1;
   --white: #ffffff;
   --gray: #f5f6fa;
@@ -49,7 +49,7 @@ body {
   text-decoration: none;
   color: inherit;
   display: block;
-  color:#27ae60;
+  color:#1f7a4c;
 }
 
 .sidebar li:hover,
