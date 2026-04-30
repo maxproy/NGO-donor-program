@@ -1,0 +1,254 @@
+/* Container to center the form on the page */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #f0f4f2; 
+}
+
+/* Card styling */
+.form-card {
+    background: white;
+    padding: 45px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-card h1 {
+    color: #1f7a4c;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 35px;
+    font-size: 16px;
+}
+
+.form-card h2 {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #2d2d2d;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: #eaeaea;
+    margin: 35px 0;
+}
+
+/* Form Elements */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 14px;
+}
+
+.modern-input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 25px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+    border-color: #1f7a4c;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(31, 122, 76, 0.1);
+}
+
+/* DONATION TYPE TOGGLE */
+.donation-type-toggle {
+    display: flex;
+    border: 2px solid #1f7a4c;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 12px;
+    background: white;
+    color: #1f7a4c;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.type-btn:not(:last-child) {
+    border-right: 1px solid #1f7a4c;
+}
+
+.type-btn.active {
+    background: #1f7a4c;
+    color: white;
+}
+
+/* AMOUNT GRID */
+.amount-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.amount-btn {
+    padding: 15px;
+    background: white;
+    border: 1.5px solid #dcdcdc;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.amount-btn:hover {
+    border-color: #1f7a4c;
+    color: #1f7a4c;
+    background: #f7fdf9;
+}
+
+.amount-btn.active {
+    background: #1f7a4c;
+    color: white;
+    border-color: #1f7a4c;
+    box-shadow: 0 6px 15px rgba(31, 122, 76, 0.25);
+    transform: translateY(-2px);
+}
+
+.other-amount-wrapper {
+    margin-top: 15px;
+}
+
+#other_amount {
+    display: none;
+}
+
+/* Specific layout for Card Expiry and CVV */
+.card-row {
+    display: flex;
+    gap: 15px;
+}
+.card-row div {
+    flex: 1;
+}
+
+/* Checkbox alignment */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #1f7a4c;
+    cursor: pointer;
+}
+.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: #555;
+    cursor: pointer;
+}
+.checkbox-group a {
+    color: #1f7a4c;
+    text-decoration: none;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 18px;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.secure-notice {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+/* PAYMENT METHOD TOGGLE */
+.payment-type-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.pay-btn {
+    flex: 1;
+    padding: 12px;
+    background: #fafafa;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pay-btn:hover {
+    border-color: #1f7a4c;
+    background: #f7fdf9;
+}
+
+.pay-btn.active {
+    background: #1f7a4c;
+    color: white;
+    border-color: #1f7a4c;
+    box-shadow: 0 4px 10px rgba(31, 122, 76, 0.2);
+}
+
+.method-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    background: #eef7f2;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #1f7a4c;
+}
+
+/* ===== FLUID RESPONSIVENESS FOR THE FORM ===== */
+@media (max-width: 650px) {
+    .form-wrapper { padding: 30px 15px; }
+    .form-card { padding: 30px 20px; }
+    .card-row { flex-direction: column; gap: 0; }
+    .card-row div input { margin-bottom: 15px; }
+    .payment-type-toggle { flex-direction: column; }
+}
+
+@media (max-width: 400px) {
+    .amount-grid { grid-template-columns: repeat(2, 1fr); }
+    .donation-type-toggle { flex-direction: column; }
+    .type-btn:not(:last-child) { border-right: none; border-bottom: 1px solid #1f7a4c; }
+}

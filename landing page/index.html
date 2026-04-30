@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGO Project - Making a Difference in East Africa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">NGO Impact</div>
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div class="nav-links">
+    <span onclick="scrollToSection('who')">Who We Are</span>
+    <div class="dropdown">
+      <span onclick="scrollToSection('what')">What We Do</span>
+      <div class="dropdown-content">
+        <div onclick="scrollToSection('what')">Programs</div>
+        <div onclick="window.location.href='Donation_form.html'">Donate</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <span onclick="scrollToSection('involved')">Get Involved</span>
+      <div class="dropdown-content">
+        <div onclick="scrollToSection('involved')">Login</div>
+        <div onclick="scrollToSection('involved')">Sign Up</div>
+      </div>
+    </div>
+    <span onclick="scrollToSection('where')">Where We Work</span>
+  </div>
+</nav>
+
+<div class="sidebar" id="sidebar">
+  <span class="close-btn" onclick="toggleMenu()">✖</span>
+  <a onclick="scrollToSection('who')">Who We Are</a>
+  <a onclick="scrollToSection('what')">What We Do</a>
+  <a onclick="scrollToSection('where')">Where We Work</a>
+  <a onclick="scrollToSection('involved')">Get Involved</a>
+  <a class="btn" style="color: white;" onclick="window.location.href='Donation_form.html'">Donate</a>
+</div>
+
+<section class="hero">
+  <h1>Changing Lives Through Education, Health & Hope</h1>
+  <p>We are a humanitarian NGO working across East Africa to provide clean water, education, healthcare, and emergency relief to vulnerable communities.</p>
+  <div>
+    <button class="btn" onclick="window.location.href='Donation_form.html'">Donate Now</button>
+    <button class="btn" onclick="scrollToSection('involved')">Become a Volunteer</button>
+  </div>
+</section>
+
+<section>
+  <h2>Our Impact</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>12+</h3>
+      <p>Communities Reached</p>
+    </div>
+    <div class="card">
+      <h3>5,000+</h3>
+      <p>Lives Impacted</p>
+    </div>
+    <div class="card">
+      <h3>3</h3>
+      <p>Active Countries</p>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <h2>Who We Are</h2>
+  <p class="text-block">We are a community-driven humanitarian organization focused on long-term impact. Our mission is to empower vulnerable populations with access to basic needs, education, and sustainable development programs.</p>
+  <img class="section-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Team meeting and collaboration">
+  <div id="team">
+    <h3 style="text-align: center; color: #1f7a4c; margin-top: 30px; margin-bottom: 15px; font-size: 24px;">Meet the Team</h3>
+    <p class="text-block">Our team consists of passionate developers and field workers building systems that connect donors directly to real communities in need.</p>
+  </div>
+</section>
+
+<section id="what">
+  <h2>What We Do</h2>
+  <p class="text-block">We design and implement programs that directly respond to urgent community needs while building long-term sustainable solutions.</p>
+  <div class="grid">
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnlO4lkpbWUjT1wcf0VzKQzuJhhMpXga3TAg&s" alt="Child Protection">
+      <h3>Child Protection</h3>
+      <p>Ensuring safety, rights, and care for vulnerable children.</p>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=child_protection'">Donate to This Course</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="Clean Water">
+      <h3>Clean Water</h3>
+      <p>Providing safe drinking water to rural communities.</p>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=clean_water'">Donate to This Course</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309" alt="Education">
+      <h3>Education</h3>
+      <p>Supporting schools, learning materials, and teachers.</p>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=education'">Donate to This Course</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309" alt="Health & Nutrition">
+      <h3>Health & Nutrition</h3>
+      <p>Improving access to medical care and nutrition programs.</p>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=health_nutrition'">Donate to This Course</button>
+    </div>
+  </div>
+</section>
+
+<section id="where">
+  <h2>Where We Work</h2>
+  <p class="text-block">We currently operate across East Africa, focusing on regions with urgent humanitarian needs.</p>
+  <div class="grid">
+    <div class="card">🇰🇪 Kenya</div>
+    <div class="card">🇺🇬 Uganda</div>
+    <div class="card">🇸🇸 South Sudan</div>
+  </div>
+</section>
+
+<section id="involved">
+  <h2>Get Involved</h2>
+  <p class="text-block">Join us in making a difference. Whether through volunteering, partnerships, or support, every contribution matters.</p>
+  <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+    <button class="btn" onclick="window.location.href='login.html'">Login</button>
+    <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
+  </div>
+</section>
+
+<footer>
+  <p>Contact: +254 718485112</p>
+  <p>Email: our email</p>
+  <p>Developed by: Sally, Izzoh, Collins</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
