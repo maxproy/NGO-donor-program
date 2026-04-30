@@ -4,38 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NGO Project - Making a Difference in East Africa</title>
-
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- ===== NAVIGATION BAR ===== -->
-<!-- Main navigation bar with logo, menu icon, and navigation links -->
 <nav class="navbar">
-
-  <!-- Logo section -->
   <div class="logo">NGO Impact</div>
-
-  <!-- Hamburger menu icon for mobile/tablet view -->
-  <div class="menu-icon" onclick="toggleMenu()">
-    ☰
-  </div>
-
-  <!-- Desktop navigation links -->
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
   <div class="nav-links">
     <span onclick="scrollToSection('who')">Who We Are</span>
-
-    <!-- What We Do dropdown menu with program shortcuts -->
     <div class="dropdown">
       <span onclick="scrollToSection('what')">What We Do</span>
       <div class="dropdown-content">
         <div onclick="scrollToSection('what')">Programs</div>
-        <div onclick="scrollToSection('donate')">Donate</div>
+        <div onclick="window.location.href='Donation_form.html'">Donate</div>
       </div>
     </div>
-
-    <!-- Get Involved dropdown menu with account actions -->
     <div class="dropdown">
       <span onclick="scrollToSection('involved')">Get Involved</span>
       <div class="dropdown-content">
@@ -43,222 +27,112 @@
         <div onclick="scrollToSection('involved')">Sign Up</div>
       </div>
     </div>
-
     <span onclick="scrollToSection('where')">Where We Work</span>
-
   </div>
-
 </nav>
 
-<!-- ===== SIDEBAR MENU ===== -->
-<!-- Mobile menu sidebar that appears when hamburger menu is clicked -->
 <div class="sidebar" id="sidebar">
-
-  <!-- Close button for the sidebar -->
   <span class="close-btn" onclick="toggleMenu()">✖</span>
-
-  <!-- Mobile navigation links -->
   <a onclick="scrollToSection('who')">Who We Are</a>
   <a onclick="scrollToSection('what')">What We Do</a>
   <a onclick="scrollToSection('where')">Where We Work</a>
   <a onclick="scrollToSection('involved')">Get Involved</a>
-  <!-- Donate button leads to the programs section where users can donate to specific causes -->
-  <a class="btn" onclick="scrollToSection('what')">Donate</a>
-
+  <a class="btn" style="color: white;" onclick="window.location.href='Donation_form.html'">Donate</a>
 </div>
 
-<!--  HERO SECTION  -->
-<!-- Main hero banner with primary call-to-action buttons -->
 <section class="hero">
-
   <h1>Changing Lives Through Education, Health & Hope</h1>
-
-  <p>
-    We are a humanitarian NGO working across East Africa to provide clean water,
-    education, healthcare, and emergency relief to vulnerable communities.
-  </p>
-
-  <!-- Primary action buttons for donations and volunteering -->
+  <p>We are a humanitarian NGO working across East Africa to provide clean water, education, healthcare, and emergency relief to vulnerable communities.</p>
   <div>
-    <!-- Donate Now button leads to program-specific donation options -->
-    <button class="btn" onclick="scrollToSection('what')">Donate Now</button>
+    <button class="btn" onclick="window.location.href='Donation_form.html'">Donate Now</button>
     <button class="btn" onclick="scrollToSection('involved')">Become a Volunteer</button>
   </div>
-
 </section>
 
-<!--  IMPACT SECTION  -->
-<!-- Statistics grid showing the NGO's impact metrics -->
 <section>
-
   <h2>Our Impact</h2>
-
-  <!-- Grid layout displaying impact metrics -->
   <div class="grid">
-
-    <!-- Metric 1: Communities Reached -->
     <div class="card">
       <h3>12+</h3>
       <p>Communities Reached</p>
     </div>
-
-    <!-- Metric 2: Lives Impacted -->
     <div class="card">
       <h3>5,000+</h3>
       <p>Lives Impacted</p>
     </div>
-
-    <!-- Metric 3: Active Countries -->
     <div class="card">
       <h3>3</h3>
       <p>Active Countries</p>
     </div>
-
   </div>
-
 </section>
 
-<!--  WHO WE ARE  -->
-<!-- Section about the organization's mission and values -->
 <section id="who">
-
   <h2>Who We Are</h2>
-
-  <!-- Mission statement and organizational overview -->
-  <p class="text-block">
-    We are a community-driven humanitarian organization focused on long-term impact.
-    Our mission is to empower vulnerable populations with access to basic needs,
-    education, and sustainable development programs.
-  </p>
-
-  <!-- Team image -->
-    <img class="section-img"
-      src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
-      alt="Team meeting and collaboration">
-
-  <!-- Team section with information about our team -->
+  <p class="text-block">We are a community-driven humanitarian organization focused on long-term impact. Our mission is to empower vulnerable populations with access to basic needs, education, and sustainable development programs.</p>
+  <img class="section-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Team meeting and collaboration">
   <div id="team">
-
-    <h3>Meet the Team</h3>
-
-    <!-- Description of team composition and mission -->
-    <p class="text-block">
-      Our team consists of passionate developers and field workers building systems
-      that connect donors directly to real communities in need.
-    </p>
-
+    <h3 style="text-align: center; color: #1f7a4c; margin-top: 30px; margin-bottom: 15px; font-size: 24px;">Meet the Team</h3>
+    <p class="text-block">Our team consists of passionate developers and field workers building systems that connect donors directly to real communities in need.</p>
   </div>
-
 </section>
 
-<!--  WHAT WE DO  -->
 <section id="what">
-
   <h2>What We Do</h2>
-
-  <p class="text-block">
-    We design and implement programs that directly respond to urgent community needs
-    while building long-term sustainable solutions.
-  </p>
-
+  <p class="text-block">We design and implement programs that directly respond to urgent community needs while building long-term sustainable solutions.</p>
   <div class="grid">
-
     <div class="card">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnlO4lkpbWUjT1wcf0VzKQzuJhhMpXga3TAg&s">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnlO4lkpbWUjT1wcf0VzKQzuJhhMpXga3TAg&s" alt="Child Protection">
       <h3>Child Protection</h3>
       <p>Ensuring safety, rights, and care for vulnerable children.</p>
-      <!-- Donation button for this specific program -->
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="scrollToSection('donate')">Donate to This Course</button>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=child_protection'">Donate to This Course</button>
     </div>
-
     <div class="card">
-      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMWFRUXGRgaGBgXFxcVFxYYFxcYFxcXFxUYHSggGB0lGxcXITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy0lHyUvLzArLS0tLS0tLS0tLS0tLS0vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAEBQMGAAECB//EAEAQAAEDAgMFBgUCBAQFBQAAAAEAAhEDIQQSMQVBUWFxBiKBkaGxEzLB0fAjQhRS4fFicoKiBxUWM7JDU2OSs//EABsBAAIDAQEBAAAAAAAAAAAAAAECAAMEBQYH/8QALhEAAgIBAwIFAwQCAwAAAAAAAAECEQMSITEEQQUTIjJRcZHwYYGx0ULBFCMk/9oADAMBAAIRAxEAPwCiBm5TNdYDkFyOK7oUpIlSgBuHpSfA+iP2fQIM/kKHB0DbhJTinh43RAJUbAhJjqXfHgjqVIZIjf6XWsTh+8PD3Xel/wAm6DCiOizeeK7Y2NAZm0/nNdPcYy8z6/2CldIMi5BB9AoQhNHwmfYT9UJVZZv5wTerOe8byd2vLog3tkjr/VCwhuwB35teBAnuxNoOl7+KfVMNkM6jelfZZpNZzdwNuP7tQFaH0ZP5dZZr1Mvi9iCk3u6Xt5JZ2wp2Z0T1zO6bJX2qFmFVS4HQf2YbFBqAxj4Lup90y7ND9AJFtt8OIHE+6zQ4NPW8L87EzcQA1R/xCCp3RGSy0RVHPQPisWULhq5cVFtcwLLexWHUhSSI4j2gFFtB1l22sFhpZihpoWhbQZdFhsJrTwIG5cVsGYKl7jahLiELV0TWth4S6twRTI2CMaZRNJxCnw+FJRP8In1A1GqNUo2lUKhZQhSBkIAbNYjFkIB2IJRjng6rBRahqEspvaA5iq1iWwQVbu0bQD4qsYqmdUYs0wWxD8GVilZotptRKJWlGYBhLxHNDNEHTVNNl0pvw+y3ozPgJwR74aTv09FbatEEaXI15aqubFo5nunXUcRBVodSIOkW9uHgVnyvfYtgtit7Qp5SOhH2QzCYHX+6d7dofL+ax9UsFLuEHUaen9VbdqxKpmn3iN0DymCn+yNnh4dm4QDGm76pHRYRroT9T9tFecLSDGwLHXxgD6JMk6Q0I2ylYlhBdMyCRzshsndPIe6snahoAaQ2JOo87nzVfboRO/2CKdqwNU6HPZFk1XuiASPMtNvVWcDz/okPZDV2UW/TN7agzAVqc0cFTItQMwd0pL2tb3WdE6qM3Dmk/az5aaqlwWLkP7M/9hqR4vDmrVcOBPunfZgj4LYQeFoZcS/nJ9VkXwXda/Sn+cCgUSx0HiisXSyAc0dtLDAklushQ7aeMjRF1ZDJbMCZWsazO7VNsBhYaleYtNwrHgLtmIVkpDt0jdDZRJBKZjBBoUDMeG2U9XEyFLsQ7FONStNqt0SjFYx25J8TtEMu9+Uep6DeglvsMolnxTGncElxWGHBLafaunua53OwRrduUaguHM5kSPMfZP5UgUyWi8Dcp2VQiMFs01RmYQRuIuFzitj1GXKdYnV0K6swQVlTRQUrarmvjBuShoDxQ3yoG1+a1iXkpd8W6OklCnb2IlyWVq0tRm1mHNKhFGWlLsjRHgADli1UpGTZaT7E3HDKcxxhHbPcA4gzohqRv0KIot7xd+HitxjZYdgUxLnb5t6JuGVMru+QySRmNhJBAvoleyDlDzyB+iSYra+IYXCpRqRMXDgOOukLHNpZHZoim4Ki8OwLnlsFlokHgQRbjYlC4nYQDDmqNAuLcTp9VV27QxLRnFFwDgAJ0mCBAJkWUWEr4hoIdT1nVw9pV2PImuCucH8lywfZlpDXirmAuIiCQZi6sDMHvzCeE8F5xgMZiQAxga1pMDvHeYk2UmM2hiKT/h1KzAQJtmO8jlwRnPH/AJIEYz7Ms3af4bG0w4jK6owG94JAPhBK5pYmg7EPzZbB2UQLwIHgAqRtPFCs3K/ERBmQw6jqUDTqE1fiGuxnEEEnSCRHFUSkr9PBfD278np3ZzDMc5xpPabzlmE9ymCCIIOm9eRMxzMK9tXDVi64ztfG/wDc0/ReoVdqsq4dtUtuG5iOMa6a2lWJKXOzEtrgngAFJ+0dBz/htaMziYAGpQze3OHgCRO+OHmom9s6bsVRykQM5sd4pVItvSThGuQxm2+Bz2foFlKCCOMiIQeF+d7uoRmE7YUMkviC+BH+UQfdM8Xgab6RrYfhJaN9tRzVL6Zcxd0HqM7yRSaoruzKk1HTxK6x+HL3AQotiUTmJTHHvygnest6XsZ01F7iqtsym3vPvHkhhtHNLWacfsiqrviwD5KGjgQwwFHKnuXxpgwpOmUbRJ3ohtMBVjtttb4VMU2GH1JuNzd56nTzWuG+xAXb3aYAmnQgkWL9QDwaND1VbdmeS5xJPEmULhqcpzhsNb8laIpLgdRB8PRk8vy3r6KwYLBjhpFzPQBAWBMA+mnTx4pgzG2IAN9egvfzTEHGx9oOwzw5pkH5mmYcPvrB+iuG0drUn0g9pkOEj7EbjuXmX8bOp/N8IjDYowRNtUJSajsVzhYyxeMieaW0KskyuHMc5T0sC4CVjclEjVIlqmyXvoElHhl4KIZREXUlmVEK3tOjAS+gYEp5tpohJ3iGIXZbDgBe++ixcSsTjjGnT9Pup6ZOZpWPp949IUtJth4roIwsebNdIF9QfyFqnVe1+Uvc9rrjMZykRYeqE2Q4NqDNw97JjXYLOG5ZeogtSZdgm6aJ9qQWNmdx8Yckzq5t0PrZNMXUmmDqJ39ClTiIAgeZ3fgVmL2iz5C8EcuUk/uaf9355KwhmXECpFnZmk/6rfVVyoAIgeu/MVZsLV+JTYQNANbwRYg85Eyq864Y+J9g7ar2/BqGbZTH+oR7kKn4Z2o9egI+qsu2nAUHCf5R1iD7BVwzlB5H7o4uCZOSXD4R78HiS0iQHWidGkylGw9tVTTa11QiSAGhuvSArp2Kpgtqf5h4mCmm22UyKLhOrBAEfK6NfzRCUbk2GM6VA/8Ay537nNA5NFvNA7fwADBNwd+nsnjsNLTzlCdoacU2fm5UNbFvcF7O7NotpEtptk2daZHAyuOy+2KWGq16LqjQ1ru60uEgEB0ZSZETHSEw2IB8K3FVXEdlnVMVVqtr5c5v+nmiwbY5hwVeKbjLYuzxi4xTLSGAy9hGQkkRBETuIS7HuJNhI4oJ4qsptpB05RE7z4DRMtlSGQ7UqlpOdnKdb0Zg8PF4XOIpw6Qj/wCBqQYIhB0sHVJOaw91K1StDxbXINUcTqvMu02J+Lin8Gdwf6bH1kr1KvTY03K8j7Q0CzF1eBeXDo7vD3V2F+ppmjE7Yy2ZhxrCKxb8pndGiE2W4lqPrsteZ1lalKjQ4gr6zjYm3ionVDpf81XTqswL8lyyhUJgUy4crmPBWLcrODiIkbkdgKsvaBvIHmRJ9EKMnOfyU17MYYPrOfFqYt1dIHoHJck9MGxWi14XCtiVHjqgaCp6IKmrYAPF1ylbZW02yrGvJRBxMBE4rZeU2SjaLC0QU6+BtIu2nWc820QVamcia0KfdS7Ggiy0ItSpC5tNYpdFiewjbEsv5rrDiQu68ESNfuosIL3XQjwYGF1adwRpv8CnlEjLJ3eoOiUPZMxw+qytigQG3Ft1t9kk46kGEtMg3az2gNYDwd4kpdTaL8gtYoyb6/e/1WUD3jw08SAR7qRWlUM3bsJe4iOs+H9wmex8R8M3PdMmBuMiPZLzTjfqPYyu6T+6B1+0oNWqIthx2gqg0w0GcxzeAFvOUoJs3oocx013a7tyIABjMYB1PDdKWMdOwW7HnY2r845tPuCn/aGnOHaYAI0m2hsY/NFWex5/VcOMe6s21qjvhPacpEizrZZOoPCEJbSGXAeR6JT2gE029U3a5Kdv2a3qqJbJlseUc7BYRS8ULsZ9qhO57jfq76QjNh/9s9VxRc12ctECSCeYkmyyx5+5fndafzsIqDiKjyTLS52XpJj0TfA4ck5if6IOvtDDiZiQTI5zf1WxjQ5vcPqq8iktzk8PcsdAkDVL8biS6zDf3WsDWLWy8z1XDnM+ZviFI3HcLkBswk3IVM/4lbJIayu0AQchgwTMlto3QfNeigk3CqH/ABEoVHCkyIpyXF/7Q/QZzuEF3nyRxv1pm3A09ig7D2wBDXHlzVmdXBCrexsEw1XXAIJBi4twVsfgmxEwVsbVm2KdCbE4fMYakGMFalW+JTDnhsEmSWwAJBvAG7SQrTVaGGZSvD7TeC9pa0gyJInundGk8+QTqTsSUFRJiHF5z7iA4zrJAJ8ZKvPYfZxOHz73uJ8re8qpUaeYCdCvQOyW1aVOkKTzlIJymCRBveNN6XLHVASrlSGLdnqUYaEUNq0C7IKgzeIH/wBiIRDmyFk8tdgyxyj7lRWce5rSZVW204PiEx7UBxrMYN5v0W9p4AMpk8EsbsDhRWPiZbIWo8OJKNZlMkpXiHAEwrkCiCo8SVijLVpMGixuEgAb7+i1h6MEAqKjOYBFU6l+fFdJHPJmjUDgYPggwwAF2/T8HijgZ8B+WUIbI5fn1hTsDuCYh0g9Au9mMJL53EexusbT13ybdAuMLViu5g3tBPIiPoUGMhs+pLR4n6qM28Y+3gp6rIj83LlzLtOvHzS2EjcLzwUjiIAHDzm5XFb+/Lqh2SHAcvooiFg7IgnEeF1e6tIOpmC2bmCJMtv5QqH2PJ/iDH8p9/7K040HvOHB0Gd+XQeaRyqXA6jaDWHMARoQI8RZK+0fytTHDkhrQf5W+cBL+1I7rVTPuWR7GbJ/7ZtH1SnsvjC9uIBB7tVwHqLJtsUzS8SucBgBTL4EBz5Pk4m/gsuPd19TR1DrT+dikYrE0vjVGOIzNe8HqHEJjg8Q3TUBQV+zdN7iXDvSSTcEnjKmw2FZSMEmymSUXszlUw9+0wLHTgt0NqUovZAY3DtqfKfzmFwMO4Q1zQQq9KqkJ33LDhI/Y6yj23QNWk+lMZ2ls66iJhDMrZILWHw+yZYquHNDhYoeWmvihoujx7amxauFcSXMBAmAfmbcAgGNYPkosPtkkXMHgr/2i7PtxJDw4tqNaQNC07xPjN+a81xezKjMxexzcupIhvKHaHwlaoyTW50sOZyX6k2J2mXaLmlU53SGviiIjRHYHFAiDqrtOxa5O9y67OqBzYRFCkW1md4kHMY6NP3VYwOLjenWDxxcS4/tYfNxt/4lLllWNl3SR1Z4/UbUcb+p8rnCIkRrNh7p9gNpkENBe3gDafEGPAqkYbEVG1YmGWP+awk9JVhZiBF1y29LPR6VkTTQ9rtDnZ4lw4pV2jxL3M0MDXlz6KRmLIFrhSiu11jbkdCmjkpmPL0MZRqv3RR6+iEOid7Uwnw3lu7UdEprNWtM4coOMmmCysWiViahSx0joV1SbFyh8JcweCObSkX4ro2c473HwXAeA0cSTbkC0e5U1R0Drr10UPw9ON+UgxZRbojW5zTbF+Rt0QeDoE1n1I3NHWQPsPNT4t4pyYloDjbr9VNTblaYi8aXiwH5yUCMMQe4ONj9PqtMfBkxuHK5UNep+mJ0lvLh58fFbqvH/jPgf7pGFHb226hB1nEVI1iNekIjDgls7xJPKOfgUJjDJnj9v6Iog/7GvjEX/kI9laK2JDJcbhpkjlvVN7O0fiVQMxbY3FrRork7A0wwsaPmsTxnms829RdFek5w+Ic4DI1xFoJECFD2qJLGbjvR+FDm06c6ZRfiNJ9EB2o+VnMJZqrGj2O9gCKfiphWzZhGknhvj6qDYAimRzumWINMNMR+G6zQdMu6mNqP52ENbFOc6AzqpH7Ja8TAnqmVQszgcfzVAdoBUojNSvPATdMmmmzC4pLZgv8A064wSYjgVDj2vY214Sz/AKgr2zGOMiEbi872B7XTbTWVUm+46hGTEr+0T82UMtvJBHkrPs0ZqJf19FUnbSa/uBne0434KzYWuMPhyHkSZ9dysk01TVGbIlF7HGBxOaSOa857e4h5xDaf7QAQObpBJ9vNWZmPLCA06lIu0VEOxMk2IYD/AIXEHKen3T+1I2+GQc5lNOBJvuv7qHE4c0yDuO/gf6j2KtwwUBzTrqI0MxpyMT4wg69NsAOIDSIJ3THd6Q4eUowz7nby9HcH8ifC1yDdWbZbIoOcdXn/AGiw9Z80tw+zQXMa5zWtO+ZJA/liRPVWDGQ1oa3TQcgEvU5FtFB8N6ecW8k1VcfuA4uvLWHiwct5B9k4wtUFviBdV912n/4z/tcQfceqnweKgRP7+qxyhaOpDJTtlrwNcGW7wpi+LESPUJFszF/qHmnocqmqL4yUtzjGYP4rMoMkXaTYjiDxB47rKp4tpaSCIIsQrkx8deGiH2vs9lYTIa8b9x/wn77ldjyVszm9d0jn64c/yUJzysT12AymHCCNVpX/APIXwcFuuQrDtgyj3uho8ECx0u8VOdb6AHzXVZgJqdx4j01Wi68X5ddVlP7rikyahM7gJ/1G/kiQi223u1AP2iP9oI9UM3EuAc2BLWsIbvu2SZ33MIrakH4rhYl7Wz1DQPZBioGV53ZA1v8Apyzb2UAH4mrFEibhod0NiB5wpXg2EyC2d02I4LW0iwMLTElotyzogj5QNbSI0BcAfdI3uOZRuRaIzjqSYJ05IbEUhm5SURTcWggWuTPUqHKimAY9m5+MOiumI7rbXJB9iqb2fb+v4FXh7QYn+1lmye4vh7TNl1mvoUyNA0DpA080t7UHusMTH1RmxaLW0gWfK6THDcfULna1A1MrG3OpAuY58FMluyQ7G9nCGC2oS+i8Z3NO/P4QCfom7cOabRDZ5AifUx6pUBkfNX4LGydasOuDAjLz4rJDE5yVfyjR1Mk0qOPj03uaGOBk7jKa45rnN7sEgT+FU3ZuwPh5q1IBjxpmLjTg2z/KC4C9oExYot23HMeAalQC9yxrA/cMoLZjU6nUIPE42jPDBKa22DXUfiCH0wPIoFmBFIxmOU7lPjcZVa3OwyDxEeUIE1X1iG5ZJ3TeUvlTq0VzwTxslxGzGNOdoAJ3qrbc2biqrpJsNADZXnaGyKzmAMaQfAe6hobLxQbBZJ8EYRmt0tyvS5clI2f2drktLjEHiodu4NzcS4NvIaIOjoaLTu4g8Qr1X2LjHC0DyVc29QcysKTy3OGtJM3m8ekJpynXqR0/DIac2n9BHUpOLSWnvAyWkQ4HfO4g8RHGJSKrVklhtM24byPA+6uj2Ei4vxCT4LYBxWINP5Dkc5rpvmaWwSN4ubc1XidujvdV6Iahbs0gftJi0T3QePEIyo4kySOFtAgdoYaphqxbUbBBhw1BG5wO8c0TiCMszKaa3FxZE4nNZxY8PtGhEag6ghA47C/CPxGOJZM5Tct3WdvHrZTlxeOQ8yV0x8sj3UVxA2p2vsZs3Ew6SQJ3k38OKttHFtDMxOUfzO+gXm7sY+k7K0Cf5nXtyCZ7OqFzg6o4vO6dB0AsFa+m1uzKvEPKuNWy0v2qSRkBDCTLjr1AR2HBteeaX2LCBuv+eErrD1nNtNuHBZeqxKEqR0PD+olmxuUubHrcSVpCMeYsR4f2WLNqZu8uIrwRnz81254EdfqhsC+DA0U5FudivSnz0OY3lqpqAEEiN3O2vtChFWInw32AkrqnAAOkw6OuUewQbILtvaGCR+oz/wDMSY8Sk2IJGUC8NMnkKkSPEeqP2vU+JTqHhWPWGtDCfNA1BlYCbl7RHIB9x5tHmmTIWR9DOM2Zt2tJINoJeZJ4QR5KXE1NS35szROlpgjzEJfs3GFtGXd7vhhFj3RfTpKGFaaji4TY6mMpJEmeRPrzVdbjdhzhySwXmLToLEj7LUwfEe3pvQWCrExYgAm3Ehom3r4oqiSWy7WT6GAmQrGmwXfrg9VfcM4DUTYiOohUDs+f1m9T7K/sMEEjT+6zz2mXw9hBs2qDT7oiC4RwLXFpA5W9UgZgnCvUpitVayQ4AVH2DxmtJtfNpwTvZb2GnnpyA8l1/wCYm/qg9oDLiGu/maAerXfZyp6qUknT+w+JIa4Ts/SI77qlT/PUe4eRKbYTZdGn8lJjejRPmo8C6yPahh3W4uR0yjdvnVW16ZZXNJho1p71QDO0syuAY4CRn1O4Ko457a5o4mpnhtMvh8DOZH7RYDNu+69G7aENpte5rnNlzX5QCQx7bmDqJaFQNobJrYgMYyadBwJzO7roBnM1g+UGcoaTpJsIQlzRqwyioJsrrttYutUHwM1TL8wsGx4wPBMsDtpr3ZKk0qo3Rlg9DceCt2z9l06VMU6bYA8yd5J3lC7W2LSrt74IcPlePmb0P00QWRp1WxHO+Q3C9p6rWgPAd/j49Y90fT25VcJDW+BleeOfWwrvh1+9TdZtT9ruR/ldyPqm2GqEd6g+J1bqD1CslqlvFg0R7Itb9tVuDV5v2wxz/wCNMZZcxjiC2QTLmzrazR5Kxv2y4fPTvxZv6A/dUztPjA/FMe1rg34bWkuEd4OeSDB4OCSEJuVT3QVPy94bMNw9VxF6bD0JH0KZdjsRlxFR4piWsDSJ1zunWB/J6oPBO7qadj6QzYh26aY8s5+oUnjUU3Hkvl1WScdMnaDe2WBbi6WZrMtVlhf5gdWH6c+pXm1CqWAtIiONiI3FevOw+bM0W0Ko/arZOdzn0x3wBmA/cOPMx5qlNy5Fw9Usc9D47Fco1I8fToo5F442QTnEb/BSteImT0TuPc6KydgHabbypdmYi/NaxVRrhaehQWCfD1rxcUcvq16tSPQdkVQbHeu4gkHUGEt2eYAM+al2hXhwdPzD1H9CFV1mLVC/g1eFdR5eVwff+UFuqs3+wWIBpJGnosXLo9DrZ3hzdHU4JKAoGwRbH3K9EeAGD6n8tjI15m/ssficubNYButp8PVA42sQwOEFogu6DWFDtB0mdZY53ESGR5d8lKEH2rUb8Jrm/ucXa8nCI3WACT0rkTMT9p/suviyymOBeOPA/VdvcLDmfIx5puCB1J4yFp0JJjgRlvHi5dCuTAADQSATNo7uvQ/RBUqsA+/UEfX0U1DUg6E7kCDDBYnLI1AmN05jB9AUbg6ndy7xx6pHSrEQZgp1hbucd5NuQzEajoiiDvYh/VHir7RItJ/IVD7Pg/FtuH2V1Y+19yyZfeaMftIdmU8rPhf+24jwJkehUW3LGm6NCWk8JgtnxbHit7AJNPMTJL6kno8iPAABH4hlMwXRBBn/AAgEXI6wklDUnEKdbhezsQMovwTT+JaBdwHUwvNtpbdp0HtBaHMfJzNId+BOdnuD2hwBBdpIg30sUsMc4KmBtSH208cx4DWmbi+4JW6/gTH54IMgtJMkgWJOtrXRNKpafRBStu+RqpKjdJpFit06Qgrlz1tr96PBDjHYGnUpllRoc12oP5rzXn21tk1sEc7C6ph+Or6fJ/Ef4vON/olWpdcugiCjq+AxbTKBgtusqCHQR4eqkxeBpVBIRW2exTXEvwxFJ5/Z/wCm7wF2eFuSq7MfUovNKs0036QdCOIOhHNPGdltp7MaNo5dLiE/7EUP0qrj+6qfENa0e5KrX/MAGkm4V47PYc0cLTa4Q6MxG8OeS4g9JjwTS3K5ulQa4Zc3RUt+OyvcSN6uNep3HnkvJsXtN3xnWMZisyhb2M2VXJDLbmyaddpq0RlqfuZoH8SOB91TgSDBB39R9VccPjsxAG/X7oPttQpUqTasfqOIaItNiTI6DXomgm3pRq6fqtPpn9yp4pw8UE35hBUlHGMdqD9VIalMkZAZm5IhaYpxdUX5ZRnBtNFi2WSS0GYETuTXalNrWtMgibdIt+cknwdUQFxtg2pgutJ9IAAG/Upsi1RaKunenLGXwMRtSiP3v8NFiUU61hlpCItJIPiI1WKteD9S1axv7x/s6j8d6VOnkX2kOMO2IumFMWA/N6Vsqy4IxlUeV581pPOEIxDnMqAgQamTgA0C/oD5qSriO+Nwy1ALgC8Bs9Urq1h8OqwOG431cSRMeqWOxJJGsDTqpVkJKT78lKXXQ9A36KQm6L5ClsFtfZTNdA6fRC03SB0Wy/6/RAhLSd7qyYB7T8usAnjrpHCxVVDkz2ZVOZ0uiWm55f3UAXLs5WjERrYyPJW7E4oNBc8gCLDeV5wzFOY/O0kECPP8Ca0qj6rgHOmS0STxICz5INuy7HJJUNKuOdR+JTbb9VxB/wA0OPqShXVqnwa1X5pLWOM2YCRJ5kzHguNqCa1YEn5zp/kbl+ii7SYb4GSm0mHNzuB1JkgT0gjzRhFcglJ8E9d9PF/DwwsGmXVO6NGuc1rZOpynyKtOFoklg009FQOzWzC5zKudpa2XObPeEVPht7o+u4r0HBOl+8G8RvIBt5+yE+UiR7sHqGSRBuXE9Z/qpWCylxFF7ZtImJ56/QqNlezgQDb2O5UuNPcsu0bcRC5Dt29RBwuJ0Wb0jewyRKRJUjaciYUbHRqtsfKdUK7MhC43Z1KsC2pTa8cCJg8Qdx5hE5oKlfYEopIFlVo9kcPTeHtD4aZDC7M2Rob3MdU9c3ururpK4bWBsoQ1XH6T/wDKFRdo9nXOcXC0+Kuu1MRko1DwbKqtPbxLbX8VnnLTKxZc8C7ZWzfglxeZO6dyqPbbGGpVDJltMerrmf8ASG+auzNt0ajvhvGV3B1j4HevO9o1A/EVSNC53kCQ3/a0ea6Hh0fNy79ijqHpiJQ0yS2yIwRdmuI04381NQpyY3KUuEgcNevXeupn6eKxufcrxZ5OSguBvQd3UNtEHMC7UMgeMuPpHop8E2Qg6tcOqEk6W+n0CTw3Hqy38D9bKsdIYGuG93gBu5LF0DIBOsCfJYvXqO35/Z53090TNfC4qvdZzdwLoO8QtrF4RnpBRUrSOE/clcNN1ixMQnYVMAsWKuTGRPTK5qb+qxYoiM4Y66Io1o8oWLE4o2p1w4SL7r808o1iHdC0jwN1tYkkFDes4fxtQl5Y2WPzAZozUwBaDvHBD7YLsRiTTMFxyAOP+FmnjMnmtrEI+1BlyI+y2My4ktNgRkgbzmc7vRrcey9BY9xJJOuq2sVWfkfHwcvxDgYkwfooTUutrFmbb2LkY0AEkb7nyXDsRoVixI9kN3CWVgQtsqxKxYi2RI0x2pUvxJF1pYmWyFZC6rYj6fkKKi65WLEU9gPkj2pSz0arRqWqkN2cabtb71pYq3yWwR1tXZoLcxGgnyuvMmP38T9gsWLreExS1V+cmLrUkkTh94BibStgDNbTT7raxdTrX/5/rL/Rk6Zf9n7DI1clMnfH9kFh6NxHre/FbWJ/CIrTJ/qg+IN7fQkfiXTY2t7LSxYuprl8mDRH4P/Z">
+      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="Clean Water">
       <h3>Clean Water</h3>
       <p>Providing safe drinking water to rural communities.</p>
-      <!-- Donation button for this specific program -->
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="scrollToSection('donate')">Donate to This Course</button>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=clean_water'">Donate to This Course</button>
     </div>
-
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350">
+      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309" alt="Education">
       <h3>Education</h3>
       <p>Supporting schools, learning materials, and teachers.</p>
-      <!-- Donation button for this specific program -->
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="scrollToSection('donate')">Donate to This Course</button>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=education'">Donate to This Course</button>
     </div>
-
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309">
+      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309" alt="Health & Nutrition">
       <h3>Health & Nutrition</h3>
       <p>Improving access to medical care and nutrition programs.</p>
-      <!-- Donation button for this specific program -->
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="scrollToSection('donate')">Donate to This Course</button>
+      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=health_nutrition'">Donate to This Course</button>
     </div>
-
   </div>
-
 </section>
 
-<!--  WHERE WE WORK  -->
 <section id="where">
-
   <h2>Where We Work</h2>
-
-  <p class="text-block">
-    We currently operate across East Africa, focusing on regions with urgent humanitarian needs.
-  </p>
-
+  <p class="text-block">We currently operate across East Africa, focusing on regions with urgent humanitarian needs.</p>
   <div class="grid">
     <div class="card">🇰🇪 Kenya</div>
     <div class="card">🇺🇬 Uganda</div>
     <div class="card">🇸🇸 South Sudan</div>
   </div>
-
 </section>
 
-<!--  GET INVOLVED  -->
-<!-- Call-to-action section for users to join the cause -->
 <section id="involved">
-
   <h2>Get Involved</h2>
-
-  <p class="text-block">
-    Join us in making a difference. Whether through volunteering, partnerships,
-    or support, every contribution matters.
-  </p>
-
-  <!-- Login and Signup buttons for volunteers and supporters -->
+  <p class="text-block">Join us in making a difference. Whether through volunteering, partnerships, or support, every contribution matters.</p>
   <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
     <button class="btn" onclick="window.location.href='login.html'">Login</button>
     <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
   </div>
-
 </section>
 
-<!--  DONATE  -->
-<section id="donate">
-
-  <h2>Support Our Mission</h2>
-
-  <p class="text-block">
-    Your donation helps provide food, shelter, education, and medical support
-    to communities in crisis.
-  </p>
-
-  <button class="btn">Donate Now</button>
-
-</section>
-
-<!--  FOOTER  -->
 <footer>
-
   <p>Contact: +254 718485112</p>
   <p>Email: our email</p>
   <p>Developed by: Sally, Izzoh, Collins</p>
-
 </footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>

@@ -1,4 +1,4 @@
-/*  SMOOTH SCROLL  */
+/* SMOOTH SCROLL  */
 function scrollToSection(id) {
   const section = document.getElementById(id);
 
@@ -7,12 +7,15 @@ function scrollToSection(id) {
       behavior: "smooth",
       block: "start"
     });
+    // Close sidebar on mobile after clicking
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar.style.right === "0px") {
+      toggleMenu();
+    }
   }
 }
 
-/*  SECTION FADE-IN ANIMATION  */
-
-
+/* SECTION FADE-IN ANIMATION  */
 const sections = document.querySelectorAll("section");
 
 const observer = new IntersectionObserver(entries => {
@@ -32,11 +35,10 @@ sections.forEach(section => {
   section.style.transition = "0.8s ease-out";
   observer.observe(section);
 });
-/* ================= SIDEBAR TOGGLE ================= */
 
+/* ================= SIDEBAR TOGGLE ================= */
 function toggleMenu() {
   const sidebar = document.getElementById("sidebar");
-
   if (sidebar.style.right === "0px") {
     sidebar.style.right = "-250px";
   } else {

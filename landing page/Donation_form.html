@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Form - NGO Impact</title>
+  <link rel="stylesheet" href="styles.css"> 
+  <link rel="stylesheet" href="donation_form_styles.css">
+  
+  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+</head>
+<body>  
+
+    <nav class="navbar">
+      <div class="logo">NGO Impact</div>
+      <div class="nav-links">
+        <a href="index.html"><span>Home</span></a>
+        <a href="index.html#what"><span>Programs</span></a>
+      </div>
+    </nav>
+
+    <div class="form-wrapper">
+        <div class="form-card donations">
+            <h1>Support Our Cause</h1>
+            <p class="form-subtitle">Your generous contribution brings hope to East Africa.</p>
+
+            <form action="submit_donation.php" method="POST" class="donation-form">
+                
+                <label for="COURSE">Select a Program to Support:</label>
+                <select id="COURSE" name="COURSE" required class="modern-input">
+                    <option value="">Choose where your money goes...</option>
+                    <option value="child_protection">Child Protection</option>
+                    <option value="clean_water">Clean Water</option>
+                    <option value="education">Education</option>
+                    <option value="health_nutrition">Health & Nutrition</option>
+                </select>
+                
+                <div class="donation-type-toggle">
+                    <button type="button" class="type-btn active" data-type="one-time">Give Once</button>
+                    <button type="button" class="type-btn" data-type="monthly">Give Monthly</button>
+                    <button type="button" class="type-btn" data-type="yearly">Give Yearly</button>
+                </div>
+                <input type="hidden" name="donation_plan" id="donation_plan" value="one-time">
+
+                <label>Select Donation Amount (USD):</label>
+                <div class="amount-grid">
+                    <button type="button" class="amount-btn" data-amount="30">$30</button>
+                    <button type="button" class="amount-btn" data-amount="50">$50</button>
+                    <button type="button" class="amount-btn" data-amount="75">$75</button>
+                    <button type="button" class="amount-btn" data-amount="100">$100</button>
+                    <button type="button" class="amount-btn" data-amount="150">$150</button>
+                    <button type="button" class="amount-btn" data-amount="other">Other</button>
+                </div>
+                <input type="hidden" name="amount" id="amount" value="">
+                
+                <div class="other-amount-wrapper">
+                    <input type="number" id="other_amount" name="other_amount" placeholder="Enter custom amount (USD)" min="1" class="modern-input">
+                </div>
+                
+                <hr class="divider">
+
+                <h2>Payment Method</h2>
+                
+                <div class="payment-type-toggle">
+                    <button type="button" class="pay-btn active" data-method="credit_card">💳 Credit Card</button>
+                    <button type="button" class="pay-btn" data-method="paypal">🅿️ PayPal</button>
+                    <button type="button" class="pay-btn" data-method="mobile">📱 Mobile Money</button>
+                </div>
+                <input type="hidden" name="payment_method" id="payment_method" value="credit_card">
+
+                <div id="credit_card_fields" class="payment-section">
+                    <label for="card_number">Card Number:</label>
+                    <input type="text" id="card_number" name="card_number" placeholder="XXXX-XXXX-XXXX-XXXX" required class="modern-input cc-input">
+                    
+                    <div class="card-row">
+                        <div>
+                            <label for="expiry_date">Expiry Date:</label>
+                            <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required class="modern-input cc-input">
+                        </div>
+                        <div>
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" required class="modern-input cc-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paypal_fields" class="payment-section" style="display: none;">
+                    <p class="method-desc">Click the button below to securely complete your donation via PayPal.</p>
+                    <div id="paypal-button-container" style="margin-top: 20px;"></div>
+                </div>
+
+                <div id="mobile_fields" class="payment-section" style="display: none;">
+                    <p class="method-desc">Enter your mobile money number to receive a payment prompt.</p>
+                    <label for="mobile_provider">Network Provider:</label>
+                    <select id="mobile_provider" name="mobile_provider" class="modern-input mm-input">
+                        <option value="">Select Provider...</option>
+                        <option value="mpesa">M-Pesa (Safaricom)</option>
+                        <option value="airtel">Airtel Money</option>
+                        <option value="mtn">MTN Mobile Money</option>
+                    </select>
+
+                    <label for="mobile_number">Mobile Number:</label>
+                    <input type="tel" id="mobile_number" name="mobile_number" placeholder="+254 7XX XXX XXX" class="modern-input mm-input">
+                </div>
+
+                <section class="agreements">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter">Send me impact updates</label>
+                    </div>
+                </section>
+
+                <button type="submit" id="standard-submit-btn" class="btn submit-btn">Complete Donation</button>
+
+                <p class="secure-notice">🔒 Secure & Encrypted Payment</p>
+            </form>
+        </div>
+    </div>
+
+    <script src="donation.js"></script>
+</body>
+</html>
