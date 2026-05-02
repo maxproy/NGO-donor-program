@@ -40,27 +40,37 @@ sections.forEach(section => {
 function toggleMenu() {
   const sidebar = document.getElementById("sidebar");
   if (sidebar.style.right === "0px") {
-    sidebar.style.right = "-250px";
+    sidebar.style.right = "-280px";
   } else {
     sidebar.style.right = "0px";
   }
+}
 
+/* ================= AUTHENTICATION UI TOGGLE ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = localStorage.getItem("currentUser");
+  
+  // Navbar Buttons
+  const navLoginBtn = document.getElementById("nav-login-btn");
+  const navProfileBtn = document.getElementById("nav-profile-btn");
+  
+  // Sidebar Buttons
+  const sideLoginBtn = document.getElementById("side-login-btn");
+  const sideProfileBtn = document.getElementById("side-profile-btn");
     
-    if (currentUser) {
-        const navBtn = document.getElementById("nav-login-btn");
-        const sideBtn = document.getElementById("side-login-btn");
-        
-        // Change the text and redirect them to the profile page instead of login
-        if(navBtn) {
-            navBtn.textContent = "My Profile";
-            navBtn.setAttribute("onclick", "window.location.href='UserProfile.html'");
-        }
-        if(sideBtn) {
-            sideBtn.textContent = "My Profile";
-            sideBtn.setAttribute("onclick", "window.location.href='UserProfile.html'");
-        }
-    }
-  });
-}
+  // If the user is logged in, hide Login and show Profile
+  if (currentUser) {
+      if (navLoginBtn) navLoginBtn.style.display = "none";
+      if (navProfileBtn) navProfileBtn.style.display = "inline-block";
+      
+      if (sideLoginBtn) sideLoginBtn.style.display = "none";
+      if (sideProfileBtn) sideProfileBtn.style.display = "block";
+  } else {
+      // Ensure defaults if logged out
+      if (navLoginBtn) navLoginBtn.style.display = "inline-block";
+      if (navProfileBtn) navProfileBtn.style.display = "none";
+      
+      if (sideLoginBtn) sideLoginBtn.style.display = "block";
+      if (sideProfileBtn) sideProfileBtn.style.display = "none";
+  }
+});

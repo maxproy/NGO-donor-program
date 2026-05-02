@@ -8,33 +8,53 @@
     <link rel="stylesheet" href="UserProfile.css">
 </head>
 <body>
-    
+
     <nav class="navbar">
         <div class="logo">NGO Impact</div>
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <div class="nav-links">
-            <span onclick="window.location.href='index.html'">Home</span>
-            <span onclick="window.location.href='Donation_form.html'">Donate</span>
-            <div class="admin-btn" onclick="window.location.href='../admin-panel/admin-login.html'">Admin Dashboard</div>
+            <a href="index.html">Home</a>
         </div>
     </nav>
 
-    <div class="profile-container">
-        <h1 style="color: #1f7a4c; margin-bottom: 20px;">User Profile</h1>
-        <div class="profile-info">
-            <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
-            <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
-            <p><strong>Phone:</strong> <span id="profile-phone">Loading...</span></p>
-            <p><strong>Address:</strong> <span id="profile-address">Loading...</span></p>
-        </div>
-        
-        <div class="profile-actions">
-            <button class="btn" onclick="window.location.href='index.html'">Back to Home</button>
-            <button class="btn" id="logout-btn" style="background-color: #e74c3c;">Logout</button>
+    <div class="profile-wrapper">
+        <div class="profile-card">
+            <h1>My Profile</h1>
+            
+            <!-- VIEW MODE -->
+            <div id="view-section">
+                <div class="info-row"><strong>Full Name:</strong> <span id="view-name"></span></div>
+                <div class="info-row"><strong>Email:</strong> <span id="view-email"></span></div>
+                <div class="info-row"><strong>Phone:</strong> <span id="view-phone"></span></div>
+                <div class="info-row"><strong>ID Number:</strong> <span id="view-idno"></span></div>
+                
+                <div class="action-buttons">
+                    <button class="btn" id="edit-btn" style="width: 100%;">Edit Profile</button>
+                    <button class="btn-danger" id="logout-btn">Logout</button>
+                </div>
+            </div>
+
+            <!-- EDIT MODE (Hidden by default) -->
+            <form id="edit-section" style="display: none;">
+                <label><strong>Full Name:</strong></label>
+                <input type="text" id="edit-name" class="edit-input" required>
+                
+                <label><strong>Email (Cannot be changed):</strong></label>
+                <input type="email" id="edit-email" class="edit-input" readonly>
+                
+                <label><strong>Phone:</strong></label>
+                <input type="text" id="edit-phone" class="edit-input" required>
+                
+                <label><strong>ID Number:</strong></label>
+                <input type="text" id="edit-idno" class="edit-input" required>
+
+                <div class="action-buttons">
+                    <button type="submit" class="btn" style="width: 100%;">Save Changes</button>
+                    <button type="button" class="btn-outline" id="cancel-btn">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script src="UserProfile.js"></script>
 </body>
 </html>

@@ -8,11 +8,15 @@
 </head>
 <body>
 
+<!-- ===== NAVIGATION BAR ===== -->
 <nav class="navbar">
   <div class="logo">NGO Impact</div>
   <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  
+  <!-- Navigation Links -->
   <div class="nav-links">
     <span onclick="scrollToSection('who')">Who We Are</span>
+    
     <div class="dropdown">
       <span onclick="scrollToSection('what')">What We Do</span>
       <div class="dropdown-content">
@@ -20,34 +24,45 @@
         <div onclick="window.location.href='Donation_form.html'">Donate</div>
       </div>
     </div>
+    
     <div class="dropdown">
       <span onclick="scrollToSection('involved')">Get Involved</span>
       <div class="dropdown-content">
-        <div onclick="scrollToSection('involved')">Login</div>
-        <div onclick="scrollToSection('involved')">Sign Up</div>
+        <div onclick="window.location.href='login.html'">Login</div>
+        <div onclick="window.location.href='signup.html'">Sign Up</div>
       </div>
-      <div>
-      <span onclick="scrollToSection('where')">Where We Work</span>
     </div>
+    
     <span onclick="scrollToSection('where')">Where We Work</span>
-    <!-- Change this line: -->
-    <div class="login-btn" id="nav-login-btn" onclick="window.location.href='login.html'">Login</div>
-    <div class="admin-btn" onclick="window.location.href='../admin-panel/admin-login.html'">Admin Dashboard
-    </div>
-    </div> 
+  </div> 
+
+  <!-- Action Buttons -->
+  <div class="nav-actions">
+    <button class="login-btn" id="nav-login-btn" onclick="window.location.href='login.html'">Login</button>
+    <button class="profile-btn" id="nav-profile-btn" style="display: none;" onclick="window.location.href='UserProfile.html'">👤 My Profile</button>
+    <button class="admin-btn" onclick="window.location.href='../admin-panel/admin-login.html'">Admin</button>
+  </div>
 </nav>
 
+<!-- ===== SIDEBAR ===== -->
 <div class="sidebar" id="sidebar">
   <span class="close-btn" onclick="toggleMenu()">✖</span>
+  
   <a onclick="scrollToSection('who')">Who We Are</a>
   <a onclick="scrollToSection('what')">What We Do</a>
   <a onclick="scrollToSection('where')">Where We Work</a>
   <a onclick="scrollToSection('involved')">Get Involved</a>
-  <a class="btn" style="color: white;" onclick="window.location.href='Donation_form.html'">Donate</a>
-<a class="btn-login" id="side-login-btn" style="color: white;" onclick="window.location.href='login.html'">Login</a>
-  <a class="btn-login" style="color: white;" onclick="window.location.href='../admin-panel/admin-login.html'">Admin Login</a>
+  <hr style="border: 1px solid #155c37; margin: 15px 0;">
+  
+  <a class="btn" style="color: white; text-align: center;" onclick="window.location.href='Donation_form.html'">Donate</a>
+  
+  <!-- Auth Buttons for Mobile -->
+  <a class="btn-outline-side" id="side-login-btn" onclick="window.location.href='login.html'">Login</a>
+  <a class="btn-profile-side" id="side-profile-btn" style="display: none;" onclick="window.location.href='UserProfile.html'">👤 My Profile</a>
+  <a class="btn-admin-side" onclick="window.location.href='../admin-panel/admin-login.html'">Admin Dashboard</a>
 </div>
 
+<!-- ===== HERO SECTION ===== -->
 <section class="hero">
   <h1>Changing Lives Through Education, Health & Hope</h1>
   <p>We are a humanitarian NGO working across East Africa to provide clean water, education, healthcare, and emergency relief to vulnerable communities.</p>
@@ -79,10 +94,10 @@
   <h2>Who We Are</h2>
   <p class="text-block">We are a community-driven humanitarian organization focused on long-term impact. Our mission is to empower vulnerable populations with access to basic needs, education, and sustainable development programs.</p>
   <img class="section-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Team meeting and collaboration">
-  </section>
+</section>
 
-<section id="team">
-  <h3 style="text-align: center; color: #1f7a4c; margin-top: 30px; margin-bottom: 15px; font-size: 24px;">Meet the Team</h3>
+<section id="team" style="padding-top: 0;">
+  <h3 style="text-align: center; color: #1f7a4c; margin-bottom: 15px; font-size: 24px;">Meet the Team</h3>
   <p class="text-block">Our team consists of passionate developers and field workers building systems that connect donors directly to real communities in need.</p>
 </section>
 
@@ -121,9 +136,9 @@
   <h2>Where We Work</h2>
   <p class="text-block">We currently operate across East Africa, focusing on regions with urgent humanitarian needs.</p>
   <div class="grid">
-    <div class="card">🇰🇪 Kenya</div>
-    <div class="card">🇺🇬 Uganda</div>
-    <div class="card">🇸🇸 South Sudan</div>
+    <div class="card"><img src="https://i.ibb.co/h11kNWCG/nairobi.jpg" alt="nairobi" border="0">🇰🇪 Kenya</div>
+    <div class="card"><img src="https://i.ibb.co/7tVvZ7r1/kampala.jpg" alt="kampala" border="0">🇺🇬 Uganda</div>
+    <div class="card"><img src="https://i.ibb.co/BKyM997k/south-sudan.jpg" alt="south sudan" border="0">🇸🇸 South Sudan</div>
   </div>
 </section>
 
@@ -138,7 +153,7 @@
 
 <footer>
   <p>Contact: +254 718485112</p>
-  <p>Email: our email</p>
+  <p>Email: contact@ngoproject.org</p>
   <p>Developed by: Sally, Izzoh, Collins</p>
 </footer>
 

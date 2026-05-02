@@ -1,34 +1,78 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Check if a user is logged in via sessionStorage
-    const loggedInEmail = sessionStorage.getItem("loggedInUser");
+    // 1. Check if user is logged in
+    const userStr = localStorage.getItem("currentUser");
     
-    if (!loggedInEmail) {
-        // If no one is logged in, redirect to the login page
+    if (!userStr) {
+        // If not logged in, kick them back to login
         window.location.href = "login.html";
         return;
     }
-
-    // 2. Get the array of all registered users from localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
     
-    // 3. Find the specific user that matches the logged-in email
-    const currentUser = users.find(user => user.email === loggedInEmail);
+    let currentUser = JSON.parse(userStr);
 
-    if (currentUser) {
-        // 4. Populate the HTML with their data
-        document.getElementById("profile-name").textContent = currentUser.name;
-        document.getElementById("profile-email").textContent = currentUser.email;
-        document.getElementById("profile-phone").textContent = currentUser.phone || "Not provided";
-        document.getElementById("profile-address").textContent = currentUser.address || "Not provided";
-    } else {
-        alert("Error loading user data.");
-        sessionStorage.removeItem("loggedInUser");
-        window.location.href = "login.html";
+    // 2. Function to populate the View Mode
+    function populateView() {
+        document.getElementById("view-name").textContent = currentUser.name || "N/A";
+        document.getElementById("view-email").textContent = currentUser.email || "N/A";
+        document.getElementById("view-phone").textContent = currentUser.phoneno || "N/A";
+        document.getElementById("view-idno").textContent = currentUser.idno || "N/A";
     }
+    
+    // Run it immediately on page load
+    populateView();
 
-    // 5. Handle Logout
+    // 3. Switch to Edit Mode
+    document.getElementById("edit-btn").addEventListener("click", () => {
+        document.getElementById("view-section").style.display = "none";
+        document.getElementById("edit-section").style.display = "block";
+
+        // Pre-fill the input boxes with current data
+        document.getElementById("edit-name").value = currentUser.name;
+        document.getElementById("edit-phone").value = currentUser.phoneno || "";
+        document.getElementById("edit-idno").value = currentUser.idno || "";
+        document.getElementById("edit-email").value = currentUser.email;
+    });
+
+    // 4. Cancel Edit Mode
+    document.getElementById("cancel-btn").addEventListener("click", () => {
+        document.getElementById("view-section").style.display = "block";
+        document.getElementById("edit-section").style.display = "none";
+    });
+
+    // 5. Save Changes
+    document.getElementById("edit-section").addEventListener("submit", (e) => {
+        e.preventDefault(); // Prevent page refresh
+
+        // Update the current user object
+        currentUser.name = document.getElementById("edit-name").value;
+        currentUser.phoneno = document.getElementById("edit-phone").value;
+        currentUser.idno = document.getElementById("edit-idno").value;
+        
+        // Save the updated logged-in user session
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+        // We also must update the master "users" array so changes persist after logging out
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        let userIndex = users.findIndex(u => u.email === currentUser.email);
+        
+        if (userIndex !== -1) {
+            users[userIndex].name = currentUser.name;
+            users[userIndex].phoneno = currentUser.phoneno;
+            users[userIndex].idno = currentUser.idno;
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+
+        // Refresh the View Mode and switch back to it
+        populateView();
+        document.getElementById("view-section").style.display = "block";
+        document.getElementById("edit-section").style.display = "none";
+        alert("Profile updated successfully!");
+    });
+
+    // 6. Handle Logout
     document.getElementById("logout-btn").addEventListener("click", () => {
-        sessionStorage.removeItem("loggedInUser"); // Clear the session
-        window.location.href = "login.html"; // Send to login page
+        // Destroy the session and redirect
+        localStorage.removeItem("currentUser");
+        window.location.href = "login.html";
     });
 });

@@ -1,24 +1,26 @@
-.profile-container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+.profile-wrapper {
+     display: flex; 
+     justify-content: center; 
+     padding: 60px 20px; 
+     background: #f7fdf9; 
+     min-height: 80vh; 
+ }
+.profile-card { background: white; 
+    padding: 40px; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    width: 100%; 
+    max-width: 500px; 
         }
-        .profile-info p {
-            font-size: 18px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .profile-info strong {
-            color: #1f7a4c;
-            display: inline-block;
-            width: 100px;
-        }
-        .profile-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
+        .profile-card h1 { color: #1f7a4c; margin-bottom: 20px; text-align: center; }
+        .info-row { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 16px; }
+        .info-row strong { color: #555; display: inline-block; width: 120px; }
+        
+        .edit-input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        .edit-input[readonly] { background-color: #f5f5f5; cursor: not-allowed; }
+        
+        .action-buttons { display: flex; gap: 10px; margin-top: 25px; }
+        .btn-outline { background: transparent; border: 2px solid #1f7a4c; color: #1f7a4c; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; }
+        .btn-outline:hover { background: #1f7a4c; color: white; }
+        .btn-danger { background: #e74c3c; color: white; padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer; width: 100%; }
+        .btn-danger:hover { background: #c0392b; }
