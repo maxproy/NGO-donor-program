@@ -44,4 +44,23 @@ function toggleMenu() {
   } else {
     sidebar.style.right = "0px";
   }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const currentUser = localStorage.getItem("currentUser");
+    
+    if (currentUser) {
+        const navBtn = document.getElementById("nav-login-btn");
+        const sideBtn = document.getElementById("side-login-btn");
+        
+        // Change the text and redirect them to the profile page instead of login
+        if(navBtn) {
+            navBtn.textContent = "My Profile";
+            navBtn.setAttribute("onclick", "window.location.href='UserProfile.html'");
+        }
+        if(sideBtn) {
+            sideBtn.textContent = "My Profile";
+            sideBtn.setAttribute("onclick", "window.location.href='UserProfile.html'");
+        }
+    }
+  });
 }

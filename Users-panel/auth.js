@@ -21,10 +21,16 @@ if (signupForm) {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const confpassword = document.getElementById("confpassword").value;
+    const idno = document.getElementById("idno").value;
+    const phoneno = document.getElementById("phoneno").value;
+
+    if (password !== confpassword) {
+        alert("Passwords do not match!");
+        return;
+    }
 
     const users = getUsers();
-
-    // Check if user exists
     const exists = users.find(u => u.email === email);
 
     if (exists) {
@@ -32,7 +38,8 @@ if (signupForm) {
       return;
     }
 
-    users.push({ name, email, password });
+    // Save all the user details
+    users.push({ name, email, password, idno, phoneno });
     saveUsers(users);
 
     alert("Account created! Please login.");
@@ -51,7 +58,6 @@ if (loginForm) {
     const password = document.getElementById("loginPassword").value;
 
     const users = getUsers();
-
     const user = users.find(u => u.email === email && u.password === password);
 
     if (!user) {
@@ -59,9 +65,9 @@ if (loginForm) {
       return;
     }
 
-    // Save logged-in user
+    // Save logged-in user to local storage so the whole site knows they are logged in
     localStorage.setItem("currentUser", JSON.stringify(user));
 
-    window.location.href = "index.html"; // go to dashboard
+    window.location.href = "index.html"; // go back to homepage
   });
 }
