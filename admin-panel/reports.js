@@ -1,6 +1,19 @@
+// Load data
 const donations = getDonations();
+const donors = getDonors();
+const messages = getMessages();
 
-// Group by month
+// Calculate summary statistics
+const totalDonations = donations.reduce((sum, d) => sum + d.amount, 0);
+const uniqueDonors = new Set(donations.map(d => d.donorName || "Unknown")).size;
+const totalMessages = messages.length;
+
+// Update summary cards
+document.getElementById("reportTotalDonations").textContent = "$" + totalDonations.toFixed(2);
+document.getElementById("reportTotalDonors").textContent = uniqueDonors;
+document.getElementById("reportTotalMessages").textContent = totalMessages;
+
+// Group donations by month for chart
 const monthlyTotals = {};
 
 donations.forEach(d => {
@@ -13,41 +26,55 @@ donations.forEach(d => {
   monthlyTotals[month] += d.amount;
 });
 
+// Create chart
 const ctx = document.getElementById("donationChart");
+if (ctx) {
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: Object.keys(monthlyTotals),
+      datasets: [{
+        label: "Donations ($)",
+        data: Object.values(monthlyTotals),
+        backgroundColor: "#1f7a4c",
+        borderColor: "#1f7a4c",
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
 
-new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: Object.keys(monthlyTotals),
-    datasets: [{
-      label: "Donations",
-      data: Object.values(monthlyTotals)
-    }]
-  }
-});
-document.getElementById("searchDonor").addEventListener("input", renderDonors);
-
-function renderDonors() {
-  const donors = getDonors();
-  const search = document.getElementById("searchDonor").value.toLowerCase();
-  const table = document.getElementById("donorTable");
-
+// Render donations table
+function renderReportsTable() {
+  const table = document.getElementById("reportsTable");
   table.innerHTML = "";
 
-  donors
-    .filter(d => d.name.toLowerCase().includes(search))
-    .forEach((donor, index) => {
-      table.innerHTML += `
-        <tr>
-          <td>${donor.name}</td>
-          <td>${donor.email}</td>
-          <td>${donor.phone}</td>
-          <td>
-            <button onclick="viewDonor(${donor.id})">View</button>
-            <button onclick="editDonor(${index})">Edit</button>
-            <button onclick="deleteDonor(${index})">Delete</button>
-          </td>
-        </tr>
-      `;
-    });
+  if (donations.length === 0) {
+    table.innerHTML = "<tr><td colspan='4' style='text-align: center; padding: 20px;'>No donations yet</td></tr>";
+    return;
+  }
+
+  donations.forEach((donation, index) => {
+    const date = new Date(donation.date).toLocaleDateString();
+    table.innerHTML += `
+      <tr>
+        <td>${donation.donorName || "Unknown"}</td>
+        <td>$${donation.amount.toFixed(2)}</td>
+        <td>${date}</td>
+        <td><span style="color: green; font-weight: bold;">✓ Completed</span></td>
+      </tr>
+    `;
+  });
 }
+
+// Initial render
+renderReportsTable();

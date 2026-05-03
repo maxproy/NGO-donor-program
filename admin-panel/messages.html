@@ -23,9 +23,40 @@
 
   <!-- Main Content -->
   <main class="main">
-    <!-- PAGE-SPECIFIC CONTENT -->
+    <h1>Messages</h1>
+    
+    <!-- Send Message Form -->
+    <div class="form-container">
+      <h3>Send Message</h3>
+      <form id="messageForm">
+        <input type="text" id="senderName" placeholder="Your Name" required>
+        <input type="email" id="senderEmail" placeholder="Your Email" required>
+        <input type="text" id="messageSubject" placeholder="Subject" required>
+        <textarea id="messageBody" placeholder="Message" required style="padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%; min-height: 120px; font-family: 'Segoe UI', sans-serif;"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Messages Table -->
+    <div class="table-section">
+      <h3>All Messages</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="messageTable"></tbody>
+      </table>
+    </div>
   </main>
 
 </div>
+<script src="data.js"></script>
+<script src="messages.js"></script>
 </body>
 </html>
