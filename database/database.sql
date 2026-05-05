@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS donors (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(20),
+    id_no VRCHAR(10),
     country VARCHAR(50),
     city VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
