@@ -23,12 +23,42 @@
 
   <!-- Main Content -->
   <main class="main">
-    <!-- PAGE-SPECIFIC CONTENT -->
-      <form id="donationForm">
-            <input type="text" id="name" placeholder="Donor Name" required>
-            <input type="number" id="amount" placeholder="Amount" required>
-            <button type="submit">Add Donation</button>
-    </form>
+    <h1>Donations</h1>
+
+    <div class="top-actions">
+      <input type="text" id="searchDonation" placeholder="Search donations...">
+      <button onclick="openDonationModal()">+ Add Donation</button>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Donor</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="donationTable"></tbody>
+      </table>
+    </div>
+
+        <div id="donationModal" class="modal">
+      <div class="modal-content">
+        <h2>Add Donation</h2>
+
+        <input type="hidden" id="donationId">
+
+        <select id="donorSelect"></select>
+        <input type="number" id="amount" placeholder="Amount">
+        
+        <div class="modal-actions">
+          <button onclick="saveDonation()">Save</button>
+          <button onclick="closeDonationModal()" class="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
 
   </main>
 
