@@ -47,9 +47,17 @@ function toggleMenu() {
 }
 
 /* ================= AUTHENTICATION UI TOGGLE ================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const currentUser = localStorage.getItem("currentUser");
+document.addEventListener("DOMContentLoaded", async () => {
+  let isLoggedIn = false;
   
+  try {
+      const response = await fetch('../api/auth/check.php', { credentials: 'include' });
+      const result = await response.json();
+      isLoggedIn = result.success && result.isLoggedIn;
+  } catch (error) {
+      console.error("Error checking auth status:", error);
+  }
+
   // Navbar Buttons
   const navLoginBtn = document.getElementById("nav-login-btn");
   const navProfileBtn = document.getElementById("nav-profile-btn");
@@ -59,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sideProfileBtn = document.getElementById("side-profile-btn");
     
   // If the user is logged in, hide Login and show Profile
-  if (currentUser) {
+  if (isLoggedIn) {
       if (navLoginBtn) navLoginBtn.style.display = "none";
       if (navProfileBtn) navProfileBtn.style.display = "inline-block";
       

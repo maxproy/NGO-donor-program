@@ -1,21 +1,8 @@
-// Initialize users
-if (!localStorage.getItem("users")) {
-  localStorage.setItem("users", JSON.stringify([]));
-}
-
-function getUsers() {
-  return JSON.parse(localStorage.getItem("users")) || [];
-}
-
-function saveUsers(users) {
-  localStorage.setItem("users", JSON.stringify(users));
-}
-
 //// SIGNUP
 const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
-  signupForm.addEventListener("submit", function(e) {
+  signupForm.addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const name = document.getElementById("name").value;
@@ -30,20 +17,31 @@ if (signupForm) {
         return;
     }
 
-    const users = getUsers();
-    const exists = users.find(u => u.email === email);
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("id_no", idno);
+    formData.append("phone", phoneno);
 
-    if (exists) {
-      alert("User already exists!");
-      return;
+    try {
+        const response = await fetch('../api/auth/register.php', { 
+            method: 'POST', 
+            body: formData,
+            credentials: 'include'
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Account created! Please login.");
+            window.location.href = "login.html";
+        } else {
+            alert("Registration failed: " + (result.message || "Unknown error"));
+        }
+    } catch (error) {
+        console.error("Signup error:", error);
+        alert("An error occurred during registration. Please try again later.");
     }
-
-    // Save all the user details
-    users.push({ name, email, password, idno, phoneno });
-    saveUsers(users);
-
-    alert("Account created! Please login.");
-    window.location.href = "login.html";
   });
 }
 
@@ -51,23 +49,32 @@ if (signupForm) {
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-  loginForm.addEventListener("submit", function(e) {
+  loginForm.addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
-    const users = getUsers();
-    const user = users.find(u => u.email === email && u.password === password);
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
 
-    if (!user) {
-      alert("Invalid credentials");
-      return;
+    try {
+        const response = await fetch('../api/auth/login.php', { 
+            method: 'POST', 
+            body: formData,
+            credentials: 'include'
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            window.location.href = "index.html"; // go back to homepage
+        } else {
+            alert("Login failed: " + (result.message || "Invalid credentials"));
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("An error occurred during login. Please try again later.");
     }
-
-    // Save logged-in user to local storage so the whole site knows they are logged in
-    localStorage.setItem("currentUser", JSON.stringify(user));
-
-    window.location.href = "index.html"; // go back to homepage
   });
 }

@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 $donor_id = isset($_GET['donor_id']) ? intval($_GET['donor_id']) : null;
 $program = isset($_GET['program']) ? trim($_GET['program']) : null;
+$start_date = isset($_GET['start_date']) ? trim($_GET['start_date']) : null;
+$end_date = isset($_GET['end_date']) ? trim($_GET['end_date']) : null;
 
 // Build base query for stats
 $stats_query = "SELECT 
@@ -46,6 +48,18 @@ if ($donor_id !== null) {
 if ($program !== null) {
     $stats_query .= " AND program LIKE ?";
     $params[] = "%$program%";
+    $types .= "s";
+}
+
+if ($start_date !== null) {
+    $stats_query .= " AND donation_date >= ?";
+    $params[] = $start_date . " 00:00:00";
+    $types .= "s";
+}
+
+if ($end_date !== null) {
+    $stats_query .= " AND donation_date <= ?";
+    $params[] = $end_date . " 23:59:59";
     $types .= "s";
 }
 
@@ -84,6 +98,18 @@ if ($donor_id !== null) {
     $program_types .= "i";
 }
 
+if ($start_date !== null) {
+    $program_query .= " AND donation_date >= ?";
+    $program_params[] = $start_date . " 00:00:00";
+    $program_types .= "s";
+}
+
+if ($end_date !== null) {
+    $program_query .= " AND donation_date <= ?";
+    $program_params[] = $end_date . " 23:59:59";
+    $program_types .= "s";
+}
+
 $program_query .= " GROUP BY program ORDER BY total DESC";
 
 $program_stmt = $conn->prepare($program_query);
@@ -112,6 +138,18 @@ if ($donor_id !== null) {
     $status_query .= " AND donor_id = ?";
     $status_params[] = $donor_id;
     $status_types .= "i";
+}
+
+if ($start_date !== null) {
+    $status_query .= " AND donation_date >= ?";
+    $status_params[] = $start_date . " 00:00:00";
+    $status_types .= "s";
+}
+
+if ($end_date !== null) {
+    $status_query .= " AND donation_date <= ?";
+    $status_params[] = $end_date . " 23:59:59";
+    $status_types .= "s";
 }
 
 $status_query .= " GROUP BY status ORDER BY count DESC";

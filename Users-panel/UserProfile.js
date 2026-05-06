@@ -1,21 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     // 1. Check if user is logged in
-    const userStr = localStorage.getItem("currentUser");
+    let currentUser = null;
     
-    if (!userStr) {
-        // If not logged in, kick them back to login
+    try {
+        const response = await fetch('../api/users/profile.php', { credentials: 'include' });
+        const result = await response.json();
+        
+        if (!result.success) {
+            window.location.href = "login.html";
+            return;
+        }
+        currentUser = result.data;
+    } catch (error) {
+        console.error("Error fetching profile:", error);
         window.location.href = "login.html";
         return;
     }
-    
-    let currentUser = JSON.parse(userStr);
 
     // 2. Function to populate the View Mode
     function populateView() {
         document.getElementById("view-name").textContent = currentUser.name || "N/A";
         document.getElementById("view-email").textContent = currentUser.email || "N/A";
-        document.getElementById("view-phone").textContent = currentUser.phoneno || "N/A";
-        document.getElementById("view-idno").textContent = currentUser.idno || "N/A";
+        document.getElementById("view-phone").textContent = currentUser.phone || currentUser.phoneno || "N/A";
+        document.getElementById("view-idno").textContent = currentUser.id_no || currentUser.idno || "N/A";
     }
     
     // Run it immediately on page load
@@ -28,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Pre-fill the input boxes with current data
         document.getElementById("edit-name").value = currentUser.name;
-        document.getElementById("edit-phone").value = currentUser.phoneno || "";
-        document.getElementById("edit-idno").value = currentUser.idno || "";
+        document.getElementById("edit-phone").value = currentUser.phone || currentUser.phoneno || "";
+        document.getElementById("edit-idno").value = currentUser.id_no || currentUser.idno || "";
         document.getElementById("edit-email").value = currentUser.email;
     });
 
@@ -40,39 +47,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 5. Save Changes
-    document.getElementById("edit-section").addEventListener("submit", (e) => {
+    document.getElementById("edit-section").addEventListener("submit", async (e) => {
         e.preventDefault(); // Prevent page refresh
 
-        // Update the current user object
-        currentUser.name = document.getElementById("edit-name").value;
-        currentUser.phoneno = document.getElementById("edit-phone").value;
-        currentUser.idno = document.getElementById("edit-idno").value;
-        
-        // Save the updated logged-in user session
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        const formData = new FormData();
+        formData.append("name", document.getElementById("edit-name").value);
+        formData.append("phone", document.getElementById("edit-phone").value);
+        formData.append("id_no", document.getElementById("edit-idno").value);
 
-        // We also must update the master "users" array so changes persist after logging out
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        let userIndex = users.findIndex(u => u.email === currentUser.email);
-        
-        if (userIndex !== -1) {
-            users[userIndex].name = currentUser.name;
-            users[userIndex].phoneno = currentUser.phoneno;
-            users[userIndex].idno = currentUser.idno;
-            localStorage.setItem("users", JSON.stringify(users));
+        try {
+            const response = await fetch('../api/users/update.php', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                // Update the local current user object to reflect changes
+                currentUser.name = document.getElementById("edit-name").value;
+                currentUser.phone = document.getElementById("edit-phone").value;
+                currentUser.id_no = document.getElementById("edit-idno").value;
+
+                populateView();
+                document.getElementById("view-section").style.display = "block";
+                document.getElementById("edit-section").style.display = "none";
+                alert("Profile updated successfully!");
+            } else {
+                alert("Failed to update profile: " + result.message);
+            }
+        } catch (error) {
+            console.error("Update error:", error);
+            alert("An error occurred while updating the profile.");
         }
-
-        // Refresh the View Mode and switch back to it
-        populateView();
-        document.getElementById("view-section").style.display = "block";
-        document.getElementById("edit-section").style.display = "none";
-        alert("Profile updated successfully!");
     });
 
     // 6. Handle Logout
-    document.getElementById("logout-btn").addEventListener("click", () => {
-        // Destroy the session and redirect
-        localStorage.removeItem("currentUser");
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+        try {
+            await fetch('../api/auth/logout.php', { 
+                method: 'POST',
+                credentials: 'include'
+            });
+        } catch (error) {
+            console.error("Logout error:", error);
+        }
         window.location.href = "login.html";
     });
 });

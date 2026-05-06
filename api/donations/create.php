@@ -10,6 +10,7 @@ require_once '../../includes/session.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
     echo json_encode([
         'success' => false,
         'message' => 'Invalid request method'
@@ -51,6 +52,7 @@ if (empty($payment_method)) {
 }
 
 if (!empty($errors)) {
+    http_response_code(400);
     echo json_encode([
         'success' => false,
         'message' => implode(', ', $errors)
@@ -66,6 +68,7 @@ $donor_stmt->execute();
 $donor_result = $donor_stmt->get_result();
 
 if ($donor_result->num_rows === 0) {
+    http_response_code(404);
     echo json_encode([
         'success' => false,
         'message' => 'Donor not found'
@@ -91,6 +94,7 @@ $insert_query = "INSERT INTO donations (donor_id, program, donation_plan, amount
 $insert_stmt = $conn->prepare($insert_query);
 
 if (!$insert_stmt) {
+    http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'Database error: ' . $conn->error
@@ -129,6 +133,7 @@ if ($insert_stmt->execute()) {
         ]
     ]);
 } else {
+    http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'Error creating donation: ' . $insert_stmt->error
