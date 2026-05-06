@@ -1,101 +1,151 @@
 # 🌍 NGO Project - Making a Difference in East Africa
 
 **Status:** Active Development  
-**Last Updated:** April 30, 2026  
+**Last Updated:** May 5, 2026  
 
-**Vision:** To create a transparent, efficient, and donor-friendly platform that empowers humanitarian organizations to maximize their impact in East Africa by efficiently managing resources and maintaining strong donor relationships.
+> **Vision:** To create a transparent, efficient, and donor-friendly platform that empowers humanitarian organizations to maximize their impact in East Africa by efficiently managing resources and maintaining strong donor relationships.
 
 ---
 
 ## 🚀 Quick Start
 
-To run this project, you need a local server environment with PHP and MySQL (like XAMPP, WAMP, or MAMP).
+To get the project up and running on your local machine, follow these steps.
 
-1.  **Database Setup:** Import the `database/database.sql` file into your MySQL database.
-2.  **Configuration:** Update the database credentials in `config/db.php`.
-3.  **Run:** Place the project files in your server's web directory (e.g., `htdocs`) and navigate to it in your browser.
-    *   **User Panel:** `http://localhost/NGO-Project/Users-panel/`
-    *   **Admin Panel:** `http://localhost/NGO-Project/admin-panel/`
+### Prerequisites
+You need a local server environment with PHP and MySQL.
+*   XAMPP (cross-platform)
+*   WAMP (for Windows)
+*   MAMP (for macOS)
+
+### 1. Database Setup
+Import the `database/database.sql` file into your MySQL database (e.g., via phpMyAdmin). This will create the necessary tables and schema.
+
+### 2. Configuration
+Copy the contents of `config/db.php` and update the credentials to match your local database setup.
+
+```php
+// In config/db.php
+define('DB_HOST', 'localhost');
+define('DB_USER', 'your_db_user');
+define('DB_PASSWORD', 'your_db_password');
+define('DB_NAME', 'ngo_project');
+```
+
+### 3. Admin User Setup
+The admin panel is protected. You need to create an admin user in the `admin_users` table.
+
+**A. Generate a Secure Password:**
+Create a temporary PHP file (e.g., `create_hash.php`) in your project root with the following content and run it in your browser.
+
+```php
+<?php
+// Use a strong password
+$password = 'YourSecurePassword123!'; 
+echo password_hash($password, PASSWORD_DEFAULT);
+?>
+```
+Copy the generated hash string.
+
+**B. Insert the Admin User:**
+Execute the following SQL query in your database, replacing the placeholder values.
+
+```sql
+INSERT INTO `admin_users` (`username`, `password`, `role`) 
+VALUES ('admin', 'PASTE_YOUR_GENERATED_HASH_HERE', 'admin');
+```
+
+### 4. Run the Application
+Place the project files in your server's web directory (e.g., `htdocs` for XAMPP) and navigate to the application in your browser.
+
+*   **User Panel:** `http://localhost/NGO-Project/Users-panel/`
+*   **Admin Panel:** `http://localhost/NGO-Project/admin-panel/admin-login.html`
 
 **Browser Compatibility:**
-* Chrome (recommended)
-* Firefox
-* Safari
-* Edge
+*   Chrome (recommended), Firefox, Safari, Edge
+
+---
+
+## 💻 Technology Stack
+
+*   **Backend:** PHP 7.4+
+*   **Database:** MySQL
+*   **Frontend:** HTML5, CSS3, JavaScript (ES6+ Asynchronous Fetch API)
+*   **Server Environment:** Apache/Nginx
+
+---
+
+## 📂 Project Structure
+
+```
+NGO-Project/
+├── admin-panel/        # Admin-facing dashboard and management pages
+│   ├── admin-auth.js   # Client-side session check
+│   ├── donor.js        # CRUD logic for donors
+│   ├── script.js       # Dashboard stats logic
+│   └── *.html          # Admin HTML files
+├── api/                # Backend PHP API endpoints
+│   ├── admin/          # Admin-specific actions (login, etc.)
+│   └── donations/      # CRUD and stats for donations
+├── config/
+│   └── db.php          # Database connection settings
+├── database/
+│   └── database.sql    # SQL schema file
+├── includes/
+│   └── session.php     # Server-side session handling
+├── Users-panel/        # Public-facing user pages
+│   ├── donation-handler.js # Client-side library for donation API
+│   └── *.html          # User HTML files
+├── DONATIONS_API.md    # Detailed API documentation for donations
+└── README.md           # This file
+```
+
+---
+
+## 📖 API Documentation
+
+This project features a comprehensive RESTful API for managing donations. For detailed information on endpoints, parameters, and example responses, please see the **DONATIONS_API.md** file.
 
 ---
 
 ## 📖 Usage Guide
 
 ### For Donors
-1. **Visit the Landing Page** (`Users-panel/index.html`)
-   * Explore our mission, programs, and impact.
-   * Learn about our work in Kenya, Uganda, and South Sudan.
-2. **Make a Donation**
-   * Click the "Donate Now" button.
-   * Select a program (Child Protection, Clean Water, Education, Health & Nutrition).
-   * Choose donation type (one-time or monthly).
-   * Select or enter an amount.
-   * Choose payment method (Credit Card, PayPal, or Mobile Money).
-   * Complete the transaction.
-3. **Track Your Impact**
-   * Receive donation confirmations.
-   * View impact stories and fund allocation.
+1.  **Visit the Landing Page** (`Users-panel/index.html`) to explore our mission and programs.
+2.  **Make a Donation** by clicking "Donate Now", filling out the secure form, and choosing a payment method.
+3.  **Track Your Impact** through confirmations and impact stories.
 
 ### For NGO Administrators
-1. **Access the Admin Dashboard**
-   * Navigate to `admin-panel/admin-login.html`.
-   * Log in with admin credentials.
-2. **Dashboard Overview**
-   * View total donations collected, monitor donor count, check monthly donation targets, and see recent donation entries.
-3. **Manage Donors**
-   * Go to the "Donors" section to add new profiles, edit information, delete records, and view contact details.
-4. **Track Donations**
-   * Access the "Donations" section to view, filter, search, and export recorded contributions.
-5. **Generate Reports**
-   * Go to the "Reports" section for financial summaries, donation trends, and compliance reports.
-6. **Manage Communications**
-   * Access the "Messages" section to send thank-you messages to donors and track communication history.
-
----
-
-## 💾 Data Storage
-The application uses a **MySQL database** for all data persistence, managed by a **PHP backend API**.
-*   All donor, donation, and message data is stored centrally on the server.
-*   User and admin sessions are managed server-side using PHP sessions.
-*   The `localStorage` and `sessionStorage` logic has been fully deprecated.
+1.  **Log In** at `admin-panel/admin-login.html` with the credentials you created.
+2.  **View Dashboard** for a real-time overview of key metrics.
+3.  **Manage Donors** in the "Donors" section (add, edit, delete).
+4.  **Track Donations** in the "Donations" section (view, filter, search).
+5.  **Generate Reports** for financial summaries and trend analysis.
+6.  **Manage Communications** to send messages to donors.
 
 ---
 
 ## 🎨 Key Components
 
-### Donation Form Intelligence
-* URL-based course pre-selection (e.g., `?course=education`).
-* Dynamic payment method switching with required field validation.
-* PayPal SDK integration for secure payments.
-* Mobile money and credit card form handling.
-
-### Admin Dashboard
-* Real-time statistics cards.
-* Interactive data tables for managing donors, donations, and messages.
-* Server-side protected routes.
-* Secure logout functionality.
+*   **Donation Form Intelligence:** URL-based program pre-selection, dynamic payment fields, and integrated payment SDKs.
+*   **Admin Dashboard:** Real-time statistic cards and interactive data tables for full control over records.
+*   **Decoupled Backend:** A clean PHP/MySQL backend API handles all data logic, separate from the frontend presentation.
 
 ---
 
 ## 🔐 Security Features
-* Admin authentication (currently local).
-* Session management.
-* Server-side form validation and prepared statements to prevent SQL injection.
-* Password protection for admin access.
+
+*   **Admin Authentication:** Secure login and session management for protected routes.
+*   **SQL Injection Prevention:** Use of prepared statements in all database queries.
+*   **Password Hashing:** Admin passwords are securely hashed using `password_hash()`.
+*   **Server-Side Validation:** All incoming data is validated on the server to ensure integrity.
 
 ---
 
 ## 🗺️ Operational Focus
 We operate across East Africa with focus areas in:
-* 🇰🇪 **Kenya**
-* 🇺🇬 **Uganda**
-* 🇸🇸 **South Sudan**
+*   🇰🇪 **Kenya**
+*   🇺🇬 **Uganda**
+*   🇸🇸 **South Sudan**
 
 **Program Areas:**
 * **Child Protection:** Ensuring safety and rights for vulnerable children.
@@ -134,15 +184,14 @@ We operate across East Africa with focus areas in:
 - [x] Backend API development (PHP)
 - [x] Database implementation (MySQL)
 - [x] User authentication and registration
-- [ ] Email notification system
-- [ ] SMS thank-you messages
-- [ ] Advanced analytics dashboard
-- [ ] Real-time data synchronization
-- [ ] Multi-language support
-- [ ] Mobile-responsive optimization
-- [ ] Payment gateway integration (Mpesa, Stripe)
-- [ ] Volunteer management system
-- [ ] Event scheduling platform
+- [ ] **Email Notification System:** Automate thank-you emails and receipts.
+- [ ] **SMS Integration:** Send SMS thank-you messages.
+- [ ] **Advanced Analytics:** A more detailed analytics dashboard with charts.
+- [ ] **Payment Gateway Integration:** Add Stripe and M-Pesa.
+- [ ] **Volunteer Management Module:** A system for managing volunteers.
+- [ ] **Event Scheduling Platform:** For organizing NGO events.
+- [ ] **Mobile-Responsive Optimization:** Further enhance mobile views.
+- [ ] **Multi-language Support**.
 
 ---
 
