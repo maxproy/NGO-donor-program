@@ -1,69 +1,104 @@
+let messagesList = [];
+
 // Load and display messages
-function renderMessages() {
-  const messages = getMessages();
-  const table = document.getElementById("messageTable");
+async function renderMessages() {
+  try {
+      const response = await fetch('../api/messages/list.php', { credentials: 'include' });
+      const result = await response.json();
+      
+      const table = document.getElementById("messageTable");
+      table.innerHTML = "";
 
-  table.innerHTML = "";
-
-  if (messages.length === 0) {
-    table.innerHTML = "<tr><td colspan='5' style='text-align: center; padding: 20px;'>No messages yet</td></tr>";
-    return;
+      if (result.success && result.data && result.data.length > 0) {
+          messagesList = result.data;
+          messagesList.forEach((msg) => {
+              const date = new Date(msg.created_at).toLocaleDateString();
+              table.innerHTML += `
+                <tr>
+                  <td>${msg.name}</td>
+                  <td>${msg.email}</td>
+                  <td>${msg.subject}</td>
+                  <td>${date}</td>
+                  <td>
+                    <button class="action-btn edit-btn" onclick="viewMessage(${msg.message_id})">View</button>
+                    <button class="action-btn delete-btn" onclick="deleteMessage(${msg.message_id})">Delete</button>
+                  </td>
+                </tr>
+              `;
+          });
+      } else {
+          table.innerHTML = "<tr><td colspan='5' style='text-align: center; padding: 20px;'>No messages yet</td></tr>";
+      }
+  } catch (error) {
+      console.error("Error fetching messages:", error);
+      document.getElementById("messageTable").innerHTML = "<tr><td colspan='5' style='text-align: center; color: red;'>Failed to load data</td></tr>";
   }
-
-  messages.forEach((message, index) => {
-    const date = new Date(message.date).toLocaleDateString();
-    table.innerHTML += `
-      <tr>
-        <td>${message.senderName}</td>
-        <td>${message.senderEmail}</td>
-        <td>${message.subject}</td>
-        <td>${date}</td>
-        <td>
-          <button class="action-btn edit-btn" onclick="viewMessage(${index})">View</button>
-          <button class="action-btn delete-btn" onclick="deleteMessage(${index})">Delete</button>
-        </td>
-      </tr>
-    `;
-  });
 }
 
 // Handle form submission
-document.getElementById("messageForm").addEventListener("submit", function(e) {
+document.getElementById("messageForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
-  const newMessage = {
-    senderName: document.getElementById("senderName").value,
-    senderEmail: document.getElementById("senderEmail").value,
-    subject: document.getElementById("messageSubject").value,
-    body: document.getElementById("messageBody").value,
-    date: new Date().toISOString()
-  };
+  const formData = new FormData();
+  formData.append("name", document.getElementById("senderName").value);
+  formData.append("email", document.getElementById("senderEmail").value);
+  formData.append("subject", document.getElementById("messageSubject").value);
+  formData.append("message", document.getElementById("messageBody").value);
 
-  const messages = getMessages();
-  messages.push(newMessage);
-  saveMessages(messages);
+  try {
+      const response = await fetch('../api/messages/create.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+      });
+      const result = await response.json();
 
-  alert("Message sent successfully!");
-  this.reset();
-  renderMessages();
+      if (result.success) {
+          alert("Message saved successfully!");
+          this.reset();
+          renderMessages();
+      } else {
+          alert("Error: " + (result.message || "Could not save message."));
+      }
+  } catch (error) {
+      console.error("Error saving message:", error);
+      alert("An error occurred while saving the message.");
+  }
 });
 
 // View message details
-function viewMessage(index) {
-  const messages = getMessages();
-  const message = messages[index];
-  alert(`From: ${message.senderName}\nEmail: ${message.senderEmail}\nSubject: ${message.subject}\n\nMessage:\n${message.body}`);
+function viewMessage(id) {
+  const msg = messagesList.find(m => m.message_id == id);
+  if (msg) {
+      alert(`From: ${msg.name}\nEmail: ${msg.email}\nSubject: ${msg.subject}\nDate: ${new Date(msg.created_at).toLocaleString()}\n\nMessage:\n${msg.message}`);
+  }
 }
 
 // Delete message
-function deleteMessage(index) {
+async function deleteMessage(id) {
   if (confirm("Are you sure you want to delete this message?")) {
-    let messages = getMessages();
-    messages.splice(index, 1);
-    saveMessages(messages);
-    renderMessages();
+      try {
+          const formData = new FormData();
+          formData.append('message_id', id);
+
+          const response = await fetch('../api/messages/delete.php', {
+              method: 'POST',
+              body: formData,
+              credentials: 'include'
+          });
+          const result = await response.json();
+
+          if (result.success) {
+              renderMessages();
+          } else {
+              alert("Error deleting message: " + (result.message || "Unknown error"));
+          }
+      } catch (error) {
+          console.error("Error deleting message:", error);
+          alert("An error occurred while deleting the message.");
+      }
   }
 }
 
 // Initial render
-renderMessages();
+document.addEventListener('DOMContentLoaded', renderMessages);

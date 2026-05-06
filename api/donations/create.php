@@ -61,7 +61,7 @@ if (!empty($errors)) {
 }
 
 // Check if donor exists
-$donor_check = "SELECT donor_id FROM donors WHERE donor_id = ?";
+$donor_check = "SELECT donor_id, name, email FROM donors WHERE donor_id = ?";
 $donor_stmt = $conn->prepare($donor_check);
 $donor_stmt->bind_param("i", $donor_id);
 $donor_stmt->execute();
@@ -76,6 +76,9 @@ if ($donor_result->num_rows === 0) {
     $donor_stmt->close();
     exit();
 }
+$donor = $donor_result->fetch_assoc();
+$donor_name = $donor['name'];
+$donor_email = $donor['email'];
 $donor_stmt->close();
 
 // Prepare payment details as JSON
@@ -103,7 +106,7 @@ if (!$insert_stmt) {
 }
 
 $insert_stmt->bind_param(
-    "isssdsss",
+    "issdssss",
     $donor_id,
     $program,
     $donation_plan,
@@ -117,6 +120,19 @@ $insert_stmt->bind_param(
 if ($insert_stmt->execute()) {
     $donation_id = $insert_stmt->insert_id;
     
+    // Send Thank You Email Notification
+    $to = $donor_email;
+    $subject = "Thank you for your donation!";
+    $email_body = "Dear " . $donor_name . ",\n\n";
+    $email_body .= "Thank you for your generous donation of $" . number_format($amount, 2) . " towards our " . $program . " program.\n\n";
+    $email_body .= "Your support helps us make a true difference in East Africa.\n\n";
+    $email_body .= "Best regards,\nThe NGO Project Team";
+    
+    $headers = "From: no-reply@ngoproject.org\r\n";
+    $headers .= "Reply-To: contact@ngoproject.org\r\n";
+    
+    @mail($to, $subject, $email_body, $headers); // @ suppresses warnings if mail server isn't set up locally
+
     echo json_encode([
         'success' => true,
         'message' => 'Donation created successfully',

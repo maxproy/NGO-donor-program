@@ -9,11 +9,13 @@
 
 ## 🚀 Quick Start
 
-No installation required! The application uses browser `localStorage` for data persistence.
+To run this project, you need a local server environment with PHP and MySQL (like XAMPP, WAMP, or MAMP).
 
-**Open in a web browser:**
-* **For Users/Donors:** Open `Users-panel/index.html` in your browser.
-* **For Admin:** Open `admin-panel/admin-login.html` in your browser.
+1.  **Database Setup:** Import the `database/database.sql` file into your MySQL database.
+2.  **Configuration:** Update the database credentials in `config/db.php`.
+3.  **Run:** Place the project files in your server's web directory (e.g., `htdocs`) and navigate to it in your browser.
+    *   **User Panel:** `http://localhost/NGO-Project/Users-panel/`
+    *   **Admin Panel:** `http://localhost/NGO-Project/admin-panel/`
 
 **Browser Compatibility:**
 * Chrome (recommended)
@@ -58,9 +60,10 @@ No installation required! The application uses browser `localStorage` for data p
 ---
 
 ## 💾 Data Storage
-The application currently uses **browser localStorage** to persist data:
-* Donor information and donations are stored locally on the browser.
-* *Note: Data is browser-specific and will be lost if the browser cache is cleared. Data is not automatically synced to a server (see Future Enhancements).*
+The application uses a **MySQL database** for all data persistence, managed by a **PHP backend API**.
+*   All donor, donation, and message data is stored centrally on the server.
+*   User and admin sessions are managed server-side using PHP sessions.
+*   The `localStorage` and `sessionStorage` logic has been fully deprecated.
 
 ---
 
@@ -74,8 +77,8 @@ The application currently uses **browser localStorage** to persist data:
 
 ### Admin Dashboard
 * Real-time statistics cards.
-* Responsive sidebar navigation.
-* Interactive donor management table.
+* Interactive data tables for managing donors, donations, and messages.
+* Server-side protected routes.
 * Secure logout functionality.
 
 ---
@@ -83,7 +86,7 @@ The application currently uses **browser localStorage** to persist data:
 ## 🔐 Security Features
 * Admin authentication (currently local).
 * Session management.
-* Form validation on both client-side.
+* Server-side form validation and prepared statements to prevent SQL injection.
 * Password protection for admin access.
 
 ---
@@ -113,24 +116,24 @@ We operate across East Africa with focus areas in:
 
 **Donation Flow:**
 1. User selects a program from the landing page.
-2. Donation form loads with pre-selected program.
-3. User chooses payment method (JavaScript dynamically shows relevant payment fields).
-4. Form data is validated and stored in `localStorage`.
-5. Confirmation is displayed to the user.
+2. User fills out the donation form.
+3. On submission, JavaScript sends the data to the `POST /api/donations/create.php` endpoint.
+4. The PHP backend validates the data and inserts it into the `donations` table in the MySQL database.
+5. A success or error message is returned to the user.
 
 **Admin Workflow:**
-1. Admin logs in via authentication.
-2. Session persists using browser storage.
-3. Dashboard displays aggregated donation data.
-4. Admin can perform CRUD operations on donors.
-5. Reports can be generated from stored data.
+1. Admin logs in via `admin-login.html`, which calls the `POST /api/admin/login.php` endpoint.
+2. Upon success, a PHP session is created on the server.
+3. Each admin page is protected by `admin-auth.js`, which verifies the active session with the server.
+4. The dashboard fetches data from the API (e.g., `GET /api/donations/stats.php`).
+5. Admin performs CRUD operations by calling the relevant API endpoints.
 
 ---
 
 ## 🚧 Future Enhancements
-- [ ] Backend API development (Node.js, Python, or Django)
-- [ ] Database implementation (MongoDB, PostgreSQL)
-- [ ] User authentication and registration
+- [x] Backend API development (PHP)
+- [x] Database implementation (MySQL)
+- [x] User authentication and registration
 - [ ] Email notification system
 - [ ] SMS thank-you messages
 - [ ] Advanced analytics dashboard
