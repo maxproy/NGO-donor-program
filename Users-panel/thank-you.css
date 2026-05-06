@@ -1,0 +1,92 @@
+ body {
+            background-color: #f0f4f2;
+            font-family: Arial, sans-serif;
+        }
+        .receipt-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .receipt-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .receipt-card h1 {
+            color: #1f7a4c;
+            margin-bottom: 10px;
+        }
+        .receipt-card p.subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .receipt-details {
+            background: #f9fbf9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .receipt-row:last-child {
+            border-bottom: none;
+        }
+        .receipt-row span.label {
+            font-weight: bold;
+            color: #555;
+        }
+        .receipt-row span.value {
+            color: #333;
+        }
+        .total-row {
+            font-size: 1.2em;
+            color: #1f7a4c;
+        }
+        .btn-home {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #1f7a4c;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-home:hover {
+            background: #155c37;
+        }
+        .btn-pdf {
+            display: inline-block;
+            padding: 12px 25px;
+            background: transparent;
+            color: #1f7a4c;
+            border: 2px solid #1f7a4c;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        .btn-pdf:hover {
+            background: #eafaf1;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }

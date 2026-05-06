@@ -100,6 +100,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // 4.5 Handle Standard Form Submission (Credit Card / Mobile)
+    const donationForm = document.querySelector('form');
+    if (donationForm) {
+        donationForm.addEventListener('submit', async (e) => {
+            // Allow PayPal button to handle its own flow without standard submission
+            if (paymentInput.value === 'paypal') {
+                e.preventDefault();
+                return;
+            }
+            
+            e.preventDefault();
+            const formData = new FormData(donationForm);
+            
+            let finalAmount = amountInput.value === 'other' ? otherAmountInput.value : amountInput.value;
+            formData.set('amount', finalAmount);
+            
+            const programInput = document.getElementById('COURSE');
+            if (programInput && !formData.get('program')) {
+                formData.set('program', programInput.value);
+            }
+
+            try {
+                const response = await fetch('../api/donations/create.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    const method = formData.get('payment_method');
+                    const program = formData.get('program');
+                    window.location.href = `thank-you.html?amount=${finalAmount}&program=${encodeURIComponent(program)}&method=${encodeURIComponent(method)}&id=${result.donation_id}`;
+                } else {
+                    alert("Error processing donation: " + result.message);
+                }
+            } catch (error) {
+                console.error("Error saving to database:", error);
+                alert("An error occurred while communicating with our server.");
+            }
+        });
+    }
+
     // 5. PayPal SDK Integration Logic
     if (typeof paypal !== 'undefined') {
         paypal.Buttons({
@@ -122,10 +164,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             },
             onApprove: (data, actions) => {
-                return actions.order.capture().then(function(orderData) {
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    alert(`Thank you for your donation, ${orderData.payer.name.given_name}!`);
-                    // document.querySelector('.donation-form').submit(); // Optional: submit form after PayPal
+                return actions.order.capture().then(async function(orderData) {
+                    console.log('Capture result', orderData);
+                    
+                    // 1. Gather the donation form data
+                    const formData = new FormData();
+                    const donorIdInput = document.getElementById('donor_id');
+                    if (donorIdInput && donorIdInput.value) {
+                        formData.append('donor_id', donorIdInput.value);
+                    }
+                    
+                    const programInput = document.getElementById('COURSE');
+                    formData.append('program', programInput ? programInput.value : 'General');
+                    
+                    const planInput = document.getElementById('donation_plan');
+                    formData.append('donation_plan', planInput ? planInput.value : 'one-time');
+                    
+                    formData.append('amount', orderData.purchase_units[0].amount.value);
+                    formData.append('payment_method', 'paypal');
+                    formData.append('transaction_id', orderData.id);
+                    formData.append('payment_details', JSON.stringify(orderData));
+
+                    // 2. Send the transaction data to your PHP backend
+                    try {
+                        const response = await fetch('../api/donations/create.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            // Redirect to the thank you page with receipt details
+                            const finalAmount = orderData.purchase_units[0].amount.value;
+                            const program = programInput ? programInput.value : 'General';
+                            window.location.href = `thank-you.html?amount=${finalAmount}&program=${encodeURIComponent(program)}&method=paypal&id=${result.donation_id}&tx=${orderData.id}`;
+                        } else {
+                            alert("Payment successful, but failed to save record: " + result.message);
+                        }
+                    } catch (error) {
+                        console.error("Error saving to database:", error);
+                        alert("Payment successful, but there was an error communicating with our server.");
+                    }
                 });
             },
             onError: (err) => {

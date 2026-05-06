@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Successful - NGO Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- html2pdf Library for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="receipt-container">
+    <div class="receipt-card">
+        <h1>Thank You! 🎉</h1>
+        <p class="subtitle">Your generous donation has been successfully processed.</p>
+        
+        <div class="receipt-details">
+            <div class="receipt-row">
+                <span class="label">Donation ID:</span>
+                <span class="value" id="receipt-id">#---</span>
+            </div>
+            <div class="receipt-row">
+                <span class="label">Program Supported:</span>
+                <span class="value" id="receipt-program">General</span>
+            </div>
+            <div class="receipt-row">
+                <span class="label">Payment Method:</span>
+                <span class="value" id="receipt-method" style="text-transform: capitalize;">---</span>
+            </div>
+            <div class="receipt-row total-row">
+                <span class="label">Amount Donated:</span>
+                <span class="value" id="receipt-amount">$0.00</span>
+            </div>
+        </div>
+
+        <p style="color: #666; font-size: 0.9em; margin-bottom: 25px;">A receipt and thank-you letter have been emailed to you.</p>
+        <div class="action-buttons">
+            <button class="btn-pdf" onclick="downloadPDF()">Download PDF</button>
+            <a href="index.html" class="btn-home">Return to Homepage</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Parse URL parameters to populate the receipt
+    document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const amount = urlParams.get('amount') || "0.00";
+        const program = urlParams.get('program') || "General Support";
+        let method = urlParams.get('method') || "Unknown";
+        const donationId = urlParams.get('id') || "N/A";
+
+        // Format the method for display (e.g., "credit_card" -> "Credit Card")
+        method = method.replace('_', ' ');
+
+        document.getElementById('receipt-amount').textContent = "$" + parseFloat(amount).toFixed(2);
+        document.getElementById('receipt-program').textContent = program;
+        document.getElementById('receipt-method').textContent = method;
+        document.getElementById('receipt-id').textContent = "#" + donationId;
+    });
+
+    // Generate PDF from the receipt card
+    function downloadPDF() {
+        const element = document.querySelector('.receipt-card');
+        const actionButtons = document.querySelector('.action-buttons');
+        const donationId = document.getElementById('receipt-id').textContent.replace('#', '') || 'Receipt';
+        
+        // Temporarily hide the buttons so they don't appear in the PDF
+        actionButtons.style.display = 'none';
+
+        const opt = {
+            margin:       0.5,
+            filename:     'NGO_Donation_' + donationId + '.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            // Restore buttons after PDF is generated
+            actionButtons.style.display = 'flex';
+        });
+    }
+</script>
+
+</body>
+</html>
