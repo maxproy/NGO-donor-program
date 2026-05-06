@@ -49,12 +49,14 @@
             document.getElementById('donationsBody').innerHTML = `<tr><td colspan="5" style="text-align: center; color: red;">Failed to load donation history.</td></tr>`;
         }
     });
-   // 3. Logout function
-    async function logout() {
-        try {
-            await fetch('../api/auth/logout.php', { method: 'POST', credentials: 'include' });
-            window.location.href = 'index.html';
-        } catch (error) {
-            console.error("Logout failed:", error);
-        }
+
+// 3. Logout function (defined globally so onclick handler can access it)
+async function logout() {
+    try {
+        await fetch('../api/auth/logout.php', { method: 'POST', credentials: 'include' });
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error("Logout failed:", error);
+        alert("Logout failed. Please try again.");
     }
+}
