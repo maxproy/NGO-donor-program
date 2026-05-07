@@ -6,9 +6,10 @@ document.getElementById('adminLoginForm').addEventListener('submit', async funct
     const errorMsg = document.getElementById('error-msg');
 
     try {
+        // Creates a FormData object
         const formData = new FormData();
-        formData.append('username', user);
-        formData.append('password', pass);
+        formData.append("username", user);
+        formData.append("password", pass);
 
         const response = await fetch('../api/admin/login.php', {
             method: 'POST',
