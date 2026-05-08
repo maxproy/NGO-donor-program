@@ -13,37 +13,52 @@ if (session_status() === PHP_SESSION_NONE) {
  * Check if user is logged in
  */
 function isLoggedIn() {
-    return isset($_SESSION['user_id']) && isset($_SESSION['user_email']);
+    return isset($_SESSION['donor_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'donor';
 }
 
 /**
  * Get current logged-in user ID
  */
 function getUserId() {
-    return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+    return isset($_SESSION['donor_id']) ? $_SESSION['donor_id'] : null;
 }
 
 /**
  * Get current logged-in user email
  */
 function getUserEmail() {
-    return isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
+    return isset($_SESSION['email']) ? $_SESSION['email'] : null;
 }
 
 /**
  * Get current logged-in user name
  */
 function getUserName() {
-    return isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
+    return isset($_SESSION['name']) ? $_SESSION['name'] : null;
+}
+
+/**
+ * Check if admin is logged in
+ */
+function isAdminLoggedIn() {
+    return isset($_SESSION['admin_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+}
+
+/**
+ * Get current logged-in admin ID
+ */
+function getAdminId() {
+    return isset($_SESSION['admin_id']) ? $_SESSION['admin_id'] : null;
 }
 
 /**
  * Set user session
  */
-function setUserSession($user_id, $email, $full_name) {
-    $_SESSION['user_id'] = $user_id;
-    $_SESSION['user_email'] = $email;
-    $_SESSION['user_name'] = $full_name;
+function setUserSession($donor_id, $email, $full_name) {
+    $_SESSION['donor_id'] = $donor_id;
+    $_SESSION['email'] = $email;
+    $_SESSION['name'] = $full_name;
+    $_SESSION['role'] = 'donor';
     $_SESSION['login_time'] = time();
 }
 
