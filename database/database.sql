@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS admin_users (
     admin_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE,
     full_name VARCHAR(100),
     role VARCHAR(50) DEFAULT 'admin',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -85,8 +85,7 @@ CREATE TABLE IF NOT EXISTS programs (
 );
 
 -- Create indexes for better performance
-CREATE INDEX idx_donor_email ON donors(email);
-CREATE INDEX idx_donation_donor ON donations(donor_id);
 CREATE INDEX idx_donation_date ON donations(donation_date);
+CREATE INDEX idx_donation_status ON donations(status);
 CREATE INDEX idx_message_status ON messages(status);
 CREATE INDEX idx_program_status ON programs(status);
