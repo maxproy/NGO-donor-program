@@ -15,11 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-// Capture data sent via FormData
-$name = trim($_POST['name'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$password = $_POST['password'] ?? '';
-$phone = trim($_POST['phone'] ?? '');
+// Check if the request is sending JSON instead of standard form data
+$json_data = json_decode(file_get_contents('php://input'), true);
+$post_data = $json_data ?: $_POST;
+
+// Capture data
+$name = trim($post_data['name'] ?? '');
+$email = trim($post_data['email'] ?? '');
+$password = $post_data['password'] ?? '';
+$phone = trim($post_data['phone'] ?? '');
 
 // Validate required fields
 if (empty($name) || empty($email) || empty($password)) {
@@ -42,6 +46,10 @@ if ($check_stmt) {
         exit();
     }
     $check_stmt->close();
+} else {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Database error: ' . $conn->error]);
+    exit();
 }
 
 // 2. Hash the password securely
@@ -60,6 +68,9 @@ if ($stmt) {
         echo json_encode(['success' => false, 'message' => 'Registration failed: ' . $stmt->error]);
     }
     $stmt->close();
+} else {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Database error: ' . $conn->error]);
 }
 
 $conn->close();
