@@ -36,7 +36,14 @@
     <input type="text" id="donorName" placeholder="Full Name" required>
     <input type="email" id="donorEmail" placeholder="Email" required>
     <input type="text" id="donorPhone" placeholder="Phone Number" required>
-
+<div class="form-group">
+    <label for="donorCountry">Country</label>
+    <input type="text" id="donorCountry" name="country" placeholder="e.g. Kenya">
+</div>
+<div class="form-group">
+    <label for="donorCity">City</label>
+    <input type="text" id="donorCity" name="city" placeholder="e.g. Nairobi">
+</div>
     <button type="submit">Save Donor</button>
   </form>
 </div>
@@ -50,6 +57,8 @@
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
+        <th>Country</th>
+        <th>City</th>
         <th>Actions</th>
       </tr>
     </thead>
