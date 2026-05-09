@@ -39,7 +39,7 @@ if ($stmt) {
     if ($result->num_rows > 0) {
         $admin = $result->fetch_assoc();
         
-        if (password_verify($password, $admin['password'])) {
+        if ($password===$admin['password']) {
             // Prevent session fixation attacks for high-privilege accounts
             session_regenerate_id(true);
             
