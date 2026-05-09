@@ -46,37 +46,6 @@ async function renderMessages() {
   }
 }
 
-// Handle form submission
-document.getElementById("messageForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const formData = new FormData();
-  formData.append("name", document.getElementById("senderName").value);
-  formData.append("email", document.getElementById("senderEmail").value);
-  formData.append("subject", document.getElementById("messageSubject").value);
-  formData.append("message", document.getElementById("messageBody").value);
-
-  try {
-      const response = await fetch('../api/messages/create.php', {
-          method: 'POST',
-          body: formData,
-          credentials: 'include'
-      });
-      const result = await response.json();
-
-      if (result.success) {
-          alert("Message saved successfully!");
-          this.reset();
-          renderMessages();
-      } else {
-          alert("Error: " + (result.message || "Could not save message."));
-      }
-  } catch (error) {
-      console.error("Error saving message:", error);
-      alert("An error occurred while saving the message.");
-  }
-});
-
 // View message details
 function viewMessage(id) {
   const msg = messagesList.find(m => m.message_id == id);
