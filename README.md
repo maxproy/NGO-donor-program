@@ -34,24 +34,12 @@ define('DB_NAME', 'ngo_project');
 ### 3. Admin User Setup
 The admin panel is protected. You need to create an admin user in the `admin_users` table.
 
-**A. Generate a Secure Password:**
-Create a temporary PHP file (e.g., `create_hash.php`) in your project root with the following content and run it in your browser.
-
-```php
-<?php
-// Use a strong password
-$password = 'YourSecurePassword123!'; 
-echo password_hash($password, PASSWORD_DEFAULT);
-?>
-```
-Copy the generated hash string.
-
-**B. Insert the Admin User:**
-Execute the following SQL query in your database, replacing the placeholder values.
+**Insert the Admin User:**
+Execute the following SQL query in your database, using your desired plain text password.
 
 ```sql
 INSERT INTO `admin_users` (`username`, `password`, `role`) 
-VALUES ('admin', 'PASTE_YOUR_GENERATED_HASH_HERE', 'admin');
+VALUES ('admin', 'your_plaintext_password_here', 'admin');
 ```
 
 ### 4. Run the Application
@@ -136,7 +124,7 @@ This project features a comprehensive RESTful API for managing donations. For de
 
 *   **Admin Authentication:** Secure login and session management for protected routes.
 *   **SQL Injection Prevention:** Use of prepared statements in all database queries.
-*   **Password Hashing:** Admin passwords are securely hashed using `password_hash()`.
+*   **Password Hashing:** Donor passwords are securely hashed using `password_hash()` (Note: Admin login is configured for plain text locally).
 *   **Server-Side Validation:** All incoming data is validated on the server to ensure integrity.
 
 ---

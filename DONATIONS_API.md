@@ -365,7 +365,7 @@ if (result.success) {
 ## Security Notes
 
 1. All inputs are validated server-side
-2. Passwords use bcrypt hashing
+2. Donor passwords use bcrypt hashing (Admin passwords use plain text)
 3. SQL prepared statements prevent SQL injection
 4. Implement session validation for sensitive operations
 5. Use HTTPS in production
