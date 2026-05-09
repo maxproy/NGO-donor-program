@@ -1,5 +1,16 @@
 let messagesList = [];
 
+// Utility function to prevent XSS attacks
+function escapeHTML(str) {
+    if (!str) return '';
+    return str.toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 // Load and display messages
 async function renderMessages() {
   try {
@@ -15,9 +26,9 @@ async function renderMessages() {
               const date = new Date(msg.created_at).toLocaleDateString();
               table.innerHTML += `
                 <tr>
-                  <td>${msg.name}</td>
-                  <td>${msg.email}</td>
-                  <td>${msg.subject}</td>
+                  <td>${escapeHTML(msg.name)}</td>
+                  <td>${escapeHTML(msg.email)}</td>
+                  <td>${escapeHTML(msg.subject)}</td>
                   <td>${date}</td>
                   <td>
                     <button class="action-btn edit-btn" onclick="viewMessage(${msg.message_id})">View</button>

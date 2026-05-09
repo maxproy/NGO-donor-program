@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - NGO Project</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="UserProfile.css">
+    <link rel="stylesheet" href="userprofile.css">
 </head>
 <body>
 
@@ -27,21 +27,68 @@
         <h2>Welcome, <span id="userName">User</span>!</h2>
     </div>
     
-    <h3 style="color: #2d2d2d; margin-bottom: 10px;">Your Donation History</h3>
-    <table id="donationsTable">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Program</th>
-                <th>Amount</th>
-                <th>Payment Method</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="donationsBody">
-            <tr><td colspan="5" style="text-align: center; padding: 20px;">Loading donations...</td></tr>
-        </tbody>
-    </table>
+    <!-- Profile Data Section -->
+    <div id="profileSection" class="profile-card">
+        <div id="viewMode">
+            <h3>My Details</h3>
+            <div class="profile-grid">
+                <div class="profile-item">
+                    <span class="profile-label">Name</span>
+                    <span id="viewName" class="profile-value"></span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Email</span>
+                    <span id="viewEmail" class="profile-value"></span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Phone</span>
+                    <span id="viewPhone" class="profile-value"></span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">ID No</span>
+                    <span id="viewIdNo" class="profile-value"></span>
+                </div>
+            </div>
+            <button onclick="toggleEditMode(true)" class="btn-primary" style="margin-top: 20px;">Edit Profile</button>
+        </div>
+        
+        <div id="editMode" style="display: none;">
+            <h3>Edit Profile</h3>
+            <form id="editProfileForm">
+                <div class="form-group"><label>Name:</label><input type="text" id="editName" required class="form-control" /></div>
+                <div class="form-group"><label>Email:</label><input type="email" id="editEmail" required class="form-control" /></div>
+                <div class="form-group"><label>Phone:</label><input type="text" id="editPhone" class="form-control" /></div>
+                <div class="form-group"><label>ID No:</label><input type="text" id="editIdNo" class="form-control" /></div>
+                <div class="form-group"><label>New Password <small style="font-weight:normal; color:#666;">(leave blank to keep current)</small>:</label><input type="password" id="editPassword" class="form-control" /></div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" onclick="toggleEditMode(false)" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Donation History Section -->
+    <div class="profile-card">
+        <h3>Your Donation History</h3>
+        <div class="table-responsive">
+            <table id="donationsTable" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Program</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="donationsBody">
+                    <tr><td colspan="5" style="text-align: center; padding: 20px; color:#666;">Loading donations...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <script src="UserProfile.js"></script>
 </body>

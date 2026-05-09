@@ -10,6 +10,9 @@
             }
             user = authResult;
             document.getElementById('userName').textContent = user.donor_name;
+            
+            // Load Profile Details
+            await loadProfileData();
         } catch (error) {
             console.error("Auth check failed:", error);
             window.location.href = 'login.html';
@@ -59,4 +62,68 @@ async function logout() {
         console.error("Logout failed:", error);
         alert("Logout failed. Please try again.");
     }
+}
+
+// 4. Load Profile Data
+async function loadProfileData() {
+    try {
+        const res = await fetch('../api/donors/get_profile.php', { credentials: 'include' });
+        const result = await res.json();
+        if (result.success && result.data) {
+            renderProfileUI(result.data);
+        } else {
+            console.error("Profile load failed:", result.message);
+            document.getElementById('viewName').innerHTML = `<span style="color:red; font-weight:bold;">Error: ${result.message}</span>`;
+        }
+    } catch (error) {
+        console.error("Error loading profile:", error);
+        document.getElementById('viewName').innerHTML = `<span style="color:red; font-weight:bold;">Network/Parse Error. Please check F12 Console.</span>`;
+    }
+}
+
+// 5. Render Profile View & Edit Modes
+function renderProfileUI(user) {
+    // Update View fields
+    document.getElementById('viewName').textContent = user.name;
+    document.getElementById('viewEmail').textContent = user.email;
+    document.getElementById('viewPhone').textContent = user.phone || 'N/A';
+    document.getElementById('viewIdNo').textContent = user.id_no || 'N/A';
+
+    // Update Edit Form fields
+    document.getElementById('editName').value = user.name;
+    document.getElementById('editEmail').value = user.email;
+    document.getElementById('editPhone').value = user.phone || '';
+    document.getElementById('editIdNo').value = user.id_no || '';
+    document.getElementById('editPassword').value = ''; // Always empty on load
+
+    // Prevent duplicate event listeners if this is called multiple times
+    const form = document.getElementById('editProfileForm');
+    const newForm = form.cloneNode(true);
+    form.parentNode.replaceChild(newForm, form);
+
+    newForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', document.getElementById('editName').value);
+        formData.append('email', document.getElementById('editEmail').value);
+        formData.append('phone', document.getElementById('editPhone').value);
+        formData.append('id_no', document.getElementById('editIdNo').value);
+        formData.append('password', document.getElementById('editPassword').value);
+
+        const res = await fetch('../api/donors/update_profile.php', { method: 'POST', body: formData, credentials: 'include' });
+        const result = await res.json();
+        if (result.success) {
+            document.getElementById('userName').textContent = document.getElementById('editName').value; // Update header greeting dynamically
+            loadProfileData(); // Re-render everything with the new updated DB state
+            toggleEditMode(false); // Hide the form on success
+            alert("Profile details successfully updated!");
+        } else {
+            alert('Update failed: ' + (result.message || 'Unknown error'));
+        }
+    });
+}
+
+function toggleEditMode(showEdit) {
+    document.getElementById('viewMode').style.display = showEdit ? 'none' : 'block';
+    document.getElementById('editMode').style.display = showEdit ? 'block' : 'none';
 }

@@ -52,9 +52,9 @@
   <a onclick="scrollToSection('what')">What We Do</a>
   <a onclick="scrollToSection('where')">Where We Work</a>
   <a onclick="scrollToSection('involved')">Get Involved</a>
-  <hr style="border: 1px solid #155c37; margin: 15px 0;">
+  <hr class="sidebar-divider">
   
-  <a class="btn" style="color: white; text-align: center;" onclick="window.location.href='Donation_form.html'">Donate</a>
+  <a class="btn sidebar-btn" onclick="window.location.href='Donation_form.html'">Donate</a>
   
   <!-- Auth Buttons for Mobile -->
   <a class="btn-outline-side" id="side-login-btn" onclick="window.location.href='login.html'">Login</a>
@@ -93,12 +93,46 @@
 <section id="who">
   <h2>Who We Are</h2>
   <p class="text-block">We are a community-driven humanitarian organization focused on long-term impact. Our mission is to empower vulnerable populations with access to basic needs, education, and sustainable development programs.</p>
+  
+  <div class="grid info-grid">
+    <div class="card info-card">
+      <h3>Our Mission</h3>
+      <p>To alleviate poverty and suffering by providing sustainable solutions in health, education, and clean water to underserved communities across East Africa.</p>
+    </div>
+    <div class="card info-card">
+      <h3>Our Vision</h3>
+      <p>A world where every community has the resources, knowledge, and resilient infrastructure to thrive independently and sustainably.</p>
+    </div>
+    <div class="card info-card">
+      <h3>Core Values</h3>
+      <p><strong>Transparency:</strong> 100% accountability.<br><strong>Empowerment:</strong> Lifting up locals.<br><strong>Sustainability:</strong> Long-lasting change.</p>
+    </div>
+  </div>
+  
   <img class="section-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Team meeting and collaboration">
 </section>
 
-<section id="team" style="padding-top: 0;">
-  <h3 style="text-align: center; color: #1f7a4c; margin-bottom: 15px; font-size: 24px;">Meet the Team</h3>
+<section id="team" class="team-section">
+  <h3 class="section-subtitle">Meet the Team</h3>
   <p class="text-block">Our team consists of passionate developers and field workers building systems that connect donors directly to real communities in need.</p>
+  
+  <div class="grid">
+    <div class="card team-card">
+      <div class="team-avatar">S</div>
+      <h4>Sally</h4>
+      <p>Co-Founder & Field Director</p>
+    </div>
+    <div class="card team-card">
+      <div class="team-avatar">I</div>
+      <h4>Izzoh</h4>
+      <p>Lead Developer & Logistics</p>
+    </div>
+    <div class="card team-card">
+      <div class="team-avatar">C</div>
+      <h4>Collins</h4>
+      <p>Operations & Community Outreach</p>
+    </div>
+  </div>
 </section>
 
 <section id="what">
@@ -109,52 +143,102 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnlO4lkpbWUjT1wcf0VzKQzuJhhMpXga3TAg&s" alt="Child Protection">
       <h3>Child Protection</h3>
       <p>Ensuring safety, rights, and care for vulnerable children.</p>
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=child_protection'">Donate to This Course</button>
+      <button class="btn btn-full" onclick="window.location.href='Donation_form.html?course=child_protection'">Donate to This Course</button>
     </div>
     <div class="card">
       <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="Clean Water">
       <h3>Clean Water</h3>
       <p>Providing safe drinking water to rural communities.</p>
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=clean_water'">Donate to This Course</button>
+      <button class="btn btn-full" onclick="window.location.href='Donation_form.html?course=clean_water'">Donate to This Course</button>
     </div>
     <div class="card">
       <img src="https://images.unsplash.com/photo-1584515933487-779824d29309" alt="Education">
       <h3>Education</h3>
       <p>Supporting schools, learning materials, and teachers.</p>
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=education'">Donate to This Course</button>
+      <button class="btn btn-full" onclick="window.location.href='Donation_form.html?course=education'">Donate to This Course</button>
     </div>
     <div class="card">
       <img src="https://images.unsplash.com/photo-1584515933487-779824d29309" alt="Health & Nutrition">
       <h3>Health & Nutrition</h3>
       <p>Improving access to medical care and nutrition programs.</p>
-      <button class="btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='Donation_form.html?course=health_nutrition'">Donate to This Course</button>
+      <button class="btn btn-full" onclick="window.location.href='Donation_form.html?course=health_nutrition'">Donate to This Course</button>
     </div>
   </div>
 </section>
 
 <section id="where">
   <h2>Where We Work</h2>
-  <p class="text-block">We currently operate across East Africa, focusing on regions with urgent humanitarian needs.</p>
+  <p class="text-block">We currently operate across East Africa, focusing on regions with urgent humanitarian needs. Our localized approach ensures that solutions are culturally relevant and effectively maintained.</p>
   <div class="grid">
-    <div class="card"><img src="https://i.ibb.co/h11kNWCG/nairobi.jpg" alt="nairobi" border="0">🇰🇪 Kenya</div>
-    <div class="card"><img src="https://i.ibb.co/7tVvZ7r1/kampala.jpg" alt="kampala" border="0">🇺🇬 Uganda</div>
-    <div class="card"><img src="https://i.ibb.co/BKyM997k/south-sudan.jpg" alt="south sudan" border="0">🇸🇸 South Sudan</div>
+    <div class="card location-card">
+      <img src="https://i.ibb.co/h11kNWCG/nairobi.jpg" alt="nairobi" border="0">
+      <h3>🇰🇪 Kenya</h3>
+      <p>Focusing on clean water access in rural areas and educational support for marginalized urban youth.</p>
+    </div>
+    <div class="card location-card">
+      <img src="https://i.ibb.co/7tVvZ7r1/kampala.jpg" alt="kampala" border="0">
+      <h3>🇺🇬 Uganda</h3>
+      <p>Expanding agricultural sustainability programs and delivering essential healthcare to remote villages.</p>
+    </div>
+    <div class="card location-card">
+      <img src="https://i.ibb.co/BKyM997k/south-sudan.jpg" alt="south sudan" border="0">
+      <h3>🇸🇸 South Sudan</h3>
+      <p>Providing emergency relief, child protection services, and rebuilding educational infrastructure.</p>
+    </div>
   </div>
 </section>
 
 <section id="involved">
   <h2>Get Involved</h2>
   <p class="text-block">Join us in making a difference. Whether through volunteering, partnerships, or support, every contribution matters.</p>
-  <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+  
+  <div class="grid involved-grid">
+    <div class="card involved-card">
+      <h3>❤️ Become a Donor</h3>
+      <p>Your financial support directly funds our field programs. Give once or set up a monthly contribution to sustain our efforts.</p>
+    </div>
+    <div class="card involved-card">
+      <h3>🤝 Volunteer</h3>
+      <p>Lend your skills and time! We are always looking for passionate individuals to help on the ground or remotely.</p>
+    </div>
+    <div class="card involved-card">
+      <h3>🏢 Partner With Us</h3>
+      <p>We collaborate with corporations and local businesses to maximize impact through CSR initiatives.</p>
+    </div>
+  </div>
+
+  <div class="action-buttons-container">
     <button class="btn" onclick="window.location.href='login.html'">Login</button>
     <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
   </div>
 </section>
 
 <footer>
-  <p>Contact: +254 718485112</p>
-  <p>Email: contact@ngoproject.org</p>
-  <p>Developed by: Sally, Izzoh, Collins</p>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3>NGO Impact</h3>
+      <p>Empowering vulnerable communities across East Africa through sustainable development and humanitarian aid.</p>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a onclick="scrollToSection('who')">Who We Are</a></li>
+        <li><a onclick="scrollToSection('what')">Programs</a></li>
+        <li><a onclick="window.location.href='Donation_form.html'">Donate</a></li>
+        <li><a onclick="scrollToSection('involved')">Get Involved</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Contact Us</h3>
+      <p>📞 +254 718485112</p>
+      <p>✉️ contact@ngoproject.org</p>
+      <p>📍 Nairobi, Kenya</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 NGO Impact. All rights reserved.</p>
+    <p style="font-size: 12px; margin-top: 5px; opacity: 0.8;">Developed by: Sally, Izzoh, Collins</p>
+  </div>
 </footer>
 
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>

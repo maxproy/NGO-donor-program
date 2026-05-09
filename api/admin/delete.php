@@ -18,6 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+// Check if admin is logged in
+if (!isAdminLoggedIn()) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    exit();
+}
+
 // Get and sanitize the message_id
 $message_id = isset($_POST['message_id']) ? intval($_POST['message_id']) : null;
 

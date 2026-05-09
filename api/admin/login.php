@@ -40,6 +40,9 @@ if ($stmt) {
         $admin = $result->fetch_assoc();
         
         if (password_verify($password, $admin['password'])) {
+            // Prevent session fixation attacks for high-privilege accounts
+            session_regenerate_id(true);
+            
             $_SESSION['admin_id'] = $admin['admin_id'];
             $_SESSION['username'] = $admin['username'];
             $_SESSION['role'] = 'admin'; // Must be 'admin' to match check.php

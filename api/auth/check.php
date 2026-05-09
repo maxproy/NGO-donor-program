@@ -8,7 +8,7 @@ require_once '../../includes/session.php';
 
 header('Content-Type: application/json');
 
-$isLoggedIn = isset($_SESSION['donor_id']) && (isset($_SESSION['role']) && $_SESSION['role'] === 'donor');
+$isLoggedIn = isset($_SESSION['donor_id']);
 
 echo json_encode([
     'success' => true,
