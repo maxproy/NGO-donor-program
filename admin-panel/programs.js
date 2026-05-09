@@ -3,7 +3,10 @@ let programsList = [];
 // Load and Render Programs
 async function renderPrograms() {
     try {
-        const response = await fetch('../api/programs/list.php', { credentials: 'include' });
+        const response = await fetch('../api/programs/list.php', { 
+            credentials: 'include',
+            cache: 'no-store' // Force live data refresh!
+        });
         const result = await response.json();
         
         const table = document.getElementById("programTable");

@@ -1,6 +1,6 @@
 <?php
 /**
- * Get Donor Profile Details
+ * Get Donor Profile
  * GET /api/donors/get_profile.php
  */
 
@@ -9,24 +9,22 @@ require_once '../../includes/session.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['donor_id'])) {
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+    exit();
+}
+
+if (!isset($_SESSION['donor_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'donor') {
     http_response_code(401);
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized - Donor access required']);
     exit();
 }
 
 $donor_id = $_SESSION['donor_id'];
 
-$query = "SELECT name, email, phone, id_no FROM donors WHERE donor_id = ?";
+$query = "SELECT donor_id, name, email, phone, id_no, country, city, created_at FROM donors WHERE donor_id = ?";
 $stmt = $conn->prepare($query);
-
-// Prevent PHP from crashing if a column is missing in the database
-if (!$stmt) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Database error: ' . $conn->error]);
-    exit();
-}
-
 $stmt->bind_param("i", $donor_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -35,8 +33,6 @@ if ($result->num_rows > 0) {
     echo json_encode(['success' => true, 'data' => $result->fetch_assoc()]);
 } else {
     http_response_code(404);
-    echo json_encode(['success' => false, 'message' => 'User not found']);
+    echo json_encode(['success' => false, 'message' => 'Profile not found']);
 }
-$stmt->close();
-$conn->close();
 ?>

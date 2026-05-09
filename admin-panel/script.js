@@ -53,7 +53,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // 4. Fetch Active Programs for the dashboard
-        const programsResponse = await fetch('../api/programs/list.php?status=active', { credentials: 'include' });
+        const programsResponse = await fetch('../api/programs/list.php?status=active', { 
+            credentials: 'include',
+            cache: 'no-store' // Force live data refresh!
+        });
         
         const progTableBody = document.getElementById("dashboardProgramTable");
         if (progTableBody) {
