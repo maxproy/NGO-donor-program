@@ -41,11 +41,15 @@ document.getElementById("donorForm").addEventListener("submit", async function(e
   const name = document.getElementById("donorName").value;
   const email = document.getElementById("donorEmail").value;
   const phone = document.getElementById("donorPhone").value;
+  const country = document.getElementById("donorCountry") ? document.getElementById("donorCountry").value : '';
+  const city = document.getElementById("donorCity") ? document.getElementById("donorCity").value : '';
 
   const formData = new FormData();
   formData.append('name', name);
   formData.append('email', email);
   formData.append('phone', phone);
+  formData.append('country', country);
+  formData.append('city', city);
 
   try {
       let url = '../api/donors/create.php';
@@ -83,6 +87,8 @@ function editDonor(id) {
       document.getElementById("donorName").value = donor.name;
       document.getElementById("donorEmail").value = donor.email;
       document.getElementById("donorPhone").value = donor.phone || '';
+      if (document.getElementById("donorCountry")) document.getElementById("donorCountry").value = donor.country || '';
+      if (document.getElementById("donorCity")) document.getElementById("donorCity").value = donor.city || '';
       
       // Scroll to form so the admin sees it
       document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });

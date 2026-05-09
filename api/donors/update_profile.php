@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-if (!isset($_SESSION['donor_id'])) {
+if (!isset($_SESSION['donor_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'donor') {
     http_response_code(401);
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized - Donor access required']);
     exit();
 }
 
@@ -26,6 +26,8 @@ $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
 $id_no = trim($_POST['id_no'] ?? '');
+$country = trim($_POST['country'] ?? '');
+$city = trim($_POST['city'] ?? '');
 $password = $_POST['password'] ?? '';
 
 if (empty($name) || empty($email)) {
@@ -50,23 +52,23 @@ $check_stmt->close();
 // Handle password update optionally
 if (!empty($password)) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $update_query = "UPDATE donors SET name = ?, email = ?, phone = ?, id_no = ?, password = ? WHERE donor_id = ?";
+    $update_query = "UPDATE donors SET name = ?, email = ?, phone = ?, id_no = ?, country = ?, city = ?, password = ? WHERE donor_id = ?";
     $stmt = $conn->prepare($update_query);
     if (!$stmt) {
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Database Error: ' . $conn->error]);
         exit();
     }
-    $stmt->bind_param("sssssi", $name, $email, $phone, $id_no, $hashed_password, $donor_id);
+    $stmt->bind_param("sssssssi", $name, $email, $phone, $id_no, $country, $city, $hashed_password, $donor_id);
 } else {
-    $update_query = "UPDATE donors SET name = ?, email = ?, phone = ?, id_no = ? WHERE donor_id = ?";
+    $update_query = "UPDATE donors SET name = ?, email = ?, phone = ?, id_no = ?, country = ?, city = ? WHERE donor_id = ?";
     $stmt = $conn->prepare($update_query);
     if (!$stmt) {
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Database Error: ' . $conn->error]);
         exit();
     }
-    $stmt->bind_param("ssssi", $name, $email, $phone, $id_no, $donor_id);
+    $stmt->bind_param("ssssssi", $name, $email, $phone, $id_no, $country, $city, $donor_id);
 }
 
 if ($stmt->execute()) {

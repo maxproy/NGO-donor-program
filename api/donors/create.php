@@ -32,6 +32,8 @@ if (!isAdminLoggedIn()) {
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
+$country = trim($_POST['country'] ?? '');
+$city = trim($_POST['city'] ?? '');
 
 // Validation
 $errors = [];
@@ -76,7 +78,7 @@ $check_stmt->close();
 // Create donor with default password (they should change it)
 $default_password = password_hash('changeme123', PASSWORD_DEFAULT);
 
-$insert_query = "INSERT INTO donors (name, email, phone, password) VALUES (?, ?, ?, ?)";
+$insert_query = "INSERT INTO donors (name, email, phone, password, country, city) VALUES (?, ?, ?, ?, ?, ?)";
 $insert_stmt = $conn->prepare($insert_query);
 
 if (!$insert_stmt) {
@@ -88,7 +90,7 @@ if (!$insert_stmt) {
     exit();
 }
 
-$insert_stmt->bind_param("ssss", $name, $email, $phone, $default_password);
+$insert_stmt->bind_param("ssssss", $name, $email, $phone, $default_password, $country, $city);
 
 if ($insert_stmt->execute()) {
     $donor_id = $insert_stmt->insert_id;
@@ -102,6 +104,8 @@ if ($insert_stmt->execute()) {
             'name' => $name,
             'email' => $email,
             'phone' => $phone,
+            'country' => $country,
+            'city' => $city,
             'created_at' => date('Y-m-d H:i:s')
         ]
     ]);

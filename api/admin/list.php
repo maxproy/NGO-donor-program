@@ -1,7 +1,7 @@
 <?php
 /**
  * List all messages
- * GET /api/messages/list.php
+ * GET /api/admin/list.php
  */
 
 require_once '../../config/db.php';

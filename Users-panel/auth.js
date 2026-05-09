@@ -11,6 +11,8 @@ if (signupForm) {
     const confpassword = document.getElementById("confpassword").value;
     const idno = document.getElementById("idno").value;
     const phoneno = document.getElementById("phoneno").value;
+    const country = document.getElementById("country") ? document.getElementById("country").value : '';
+    const city = document.getElementById("city") ? document.getElementById("city").value : '';
 
     if (password !== confpassword) {
         alert("Passwords do not match!");
@@ -23,6 +25,8 @@ if (signupForm) {
     formData.append("password", password);
     formData.append("id_no", idno);
     formData.append("phone", phoneno);
+    formData.append("country", country);
+    formData.append("city", city);
 
     try {
         const response = await fetch('../api/auth/register.php', { 

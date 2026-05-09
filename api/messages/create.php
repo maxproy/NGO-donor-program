@@ -1,6 +1,6 @@
 <?php
 /**
- * Create a new message from a public user
+ * Create a new message (Public endpoint)
  * POST /api/messages/create.php
  */
 
@@ -10,65 +10,37 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Invalid request method'
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
     exit();
 }
 
-$name = trim($_POST['name'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$subject = trim($_POST['subject'] ?? '');
-$message = trim($_POST['message'] ?? '');
+$name = isset($_POST['name']) ? trim($_POST['name']) : '';
+$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+$subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
+$message = isset($_POST['message']) ? trim($_POST['message']) : '';
 
-$errors = [];
-if (empty($name) || strlen($name) < 2) {
-    $errors[] = 'Name is required';
-}
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Valid email is required';
-}
-if (empty($subject)) {
-    $errors[] = 'Subject is required';
-}
-if (empty($message) || strlen($message) < 10) {
-    $errors[] = 'Message must be at least 10 characters';
-}
-
-if (!empty($errors)) {
+if (empty($name) || empty($email) || empty($subject) || empty($message)) {
     http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'message' => implode(' ', $errors)
-    ]);
+    echo json_encode(['success' => false, 'message' => 'All fields (name, email, subject, message) are required']);
     exit();
 }
 
-$insert_query = "INSERT INTO messages (name, email, subject, message, status, created_at) VALUES (?, ?, ?, ?, 'unread', NOW())";
+$insert_query = "INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($insert_query);
+
 if (!$stmt) {
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Database error: ' . $conn->error
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Database error: ' . $conn->error]);
     exit();
 }
 
-$stmt->bind_param('ssss', $name, $email, $subject, $message);
+$stmt->bind_param("ssss", $name, $email, $subject, $message);
 
 if ($stmt->execute()) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Message sent successfully. Our team will get back to you soon.'
-    ]);
+    echo json_encode(['success' => true, 'message' => 'Message sent successfully', 'message_id' => $stmt->insert_id]);
 } else {
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Could not save message: ' . $stmt->error
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Failed to save message: ' . $stmt->error]);
 }
 
 $stmt->close();

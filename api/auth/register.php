@@ -21,6 +21,8 @@ $email = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 $id_no = trim($_POST['id_no'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
+$country = trim($_POST['country'] ?? '');
+$city = trim($_POST['city'] ?? '');
 
 // Basic validation
 if (empty($name) || empty($email) || empty($password)) {
@@ -48,10 +50,10 @@ $check_stmt->close();
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // Insert the new user into the donors table
-$insert_query = "INSERT INTO donors (name, email, password, id_no, phone) VALUES (?, ?, ?, ?, ?)";
+$insert_query = "INSERT INTO donors (name, email, password, id_no, phone, country, city) VALUES (?, ?, ?, ?, ?, ?, ?)";
 $insert_stmt = $conn->prepare($insert_query);
 
-$insert_stmt->bind_param("sssss", $name, $email, $hashed_password, $id_no, $phone);
+$insert_stmt->bind_param("sssssss", $name, $email, $hashed_password, $id_no, $phone, $country, $city);
 
 if ($insert_stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Account created successfully']);

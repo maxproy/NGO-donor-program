@@ -31,20 +31,58 @@ async function renderMessages() {
                   <td>${escapeHTML(msg.subject)}</td>
                   <td>${date}</td>
                   <td>
+                    <span style="font-weight: bold; color: ${msg.status === 'unread' ? '#ff9800' : '#1f7a4c'};">
+                        ${msg.status.charAt(0).toUpperCase() + msg.status.slice(1)}
+                    </span>
+                  </td>
+                  <td>
                     <button class="action-btn edit-btn" onclick="viewMessage(${msg.message_id})">View</button>
+                    ${msg.status === 'unread' ? `<button class="action-btn edit-btn" onclick="updateMessageStatus(${msg.message_id}, 'read')">Mark Read</button>` : ''}
+                    ${msg.status !== 'replied' ? `<button class="action-btn edit-btn" onclick="updateMessageStatus(${msg.message_id}, 'replied')">Replied</button>` : ''}
                     <button class="action-btn delete-btn" onclick="deleteMessage(${msg.message_id})">Delete</button>
                   </td>
                 </tr>
               `;
           });
       } else {
-          table.innerHTML = "<tr><td colspan='5' style='text-align: center; padding: 20px;'>No messages yet</td></tr>";
+          table.innerHTML = "<tr><td colspan='6' style='text-align: center; padding: 20px;'>No messages yet</td></tr>";
       }
   } catch (error) {
       console.error("Error fetching messages:", error);
-      document.getElementById("messageTable").innerHTML = "<tr><td colspan='5' style='text-align: center; color: red;'>Failed to load data</td></tr>";
+      document.getElementById("messageTable").innerHTML = "<tr><td colspan='6' style='text-align: center; color: red;'>Failed to load data</td></tr>";
   }
 }
+
+// Handle form submission
+document.getElementById("messageForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append("name", document.getElementById("senderName").value);
+  formData.append("email", document.getElementById("senderEmail").value);
+  formData.append("subject", document.getElementById("messageSubject").value);
+  formData.append("message", document.getElementById("messageBody").value);
+
+  try {
+      const response = await fetch('../api/messages/create.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+      });
+      const result = await response.json();
+
+      if (result.success) {
+          alert("Message saved successfully!");
+          this.reset();
+          renderMessages();
+      } else {
+          alert("Error: " + (result.message || "Could not save message."));
+      }
+  } catch (error) {
+      console.error("Error saving message:", error);
+      alert("An error occurred while saving the message.");
+  }
+});
 
 // View message details
 function viewMessage(id) {
@@ -52,6 +90,31 @@ function viewMessage(id) {
   if (msg) {
       alert(`From: ${msg.name}\nEmail: ${msg.email}\nSubject: ${msg.subject}\nDate: ${new Date(msg.created_at).toLocaleString()}\n\nMessage:\n${msg.message}`);
   }
+}
+
+// Update Message Status
+async function updateMessageStatus(id, status) {
+    try {
+        const formData = new FormData();
+        formData.append('message_id', id);
+        formData.append('status', status);
+
+        const response = await fetch('../api/messages/update.php', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            renderMessages();
+        } else {
+            alert("Error updating message: " + (result.message || "Unknown error"));
+        }
+    } catch (error) {
+        console.error("Error updating message:", error);
+        alert("An error occurred while updating the message status.");
+    }
 }
 
 // Delete message

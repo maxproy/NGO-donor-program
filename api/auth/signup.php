@@ -24,6 +24,8 @@ $name = trim($post_data['name'] ?? '');
 $email = trim($post_data['email'] ?? '');
 $password = $post_data['password'] ?? '';
 $phone = trim($post_data['phone'] ?? '');
+$country = trim($post_data['country'] ?? '');
+$city = trim($post_data['city'] ?? '');
 
 // Validate required fields
 if (empty($name) || empty($email) || empty($password)) {
@@ -56,11 +58,11 @@ if ($check_stmt) {
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // 3. Insert the new user into the donors table
-$insert_query = "INSERT INTO donors (name, email, password, phone) VALUES (?, ?, ?, ?)";
+$insert_query = "INSERT INTO donors (name, email, password, phone, country, city) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($insert_query);
 
 if ($stmt) {
-    $stmt->bind_param("ssss", $name, $email, $hashed_password, $phone);
+    $stmt->bind_param("ssssss", $name, $email, $hashed_password, $phone, $country, $city);
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Registration successful. You can now login.']);
     } else {

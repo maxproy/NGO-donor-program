@@ -1,7 +1,7 @@
 <?php
 /**
  * Create a new message
- * POST /api/messages/create.php
+ * POST /api/admin/create.php
  */
 
 require_once '../../config/db.php';

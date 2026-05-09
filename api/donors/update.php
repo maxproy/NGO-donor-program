@@ -62,6 +62,8 @@ $donor_stmt->close();
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
+$country = trim($_POST['country'] ?? '');
+$city = trim($_POST['city'] ?? '');
 
 // Validation
 $errors = [];
@@ -104,7 +106,7 @@ if ($check_stmt->get_result()->num_rows > 0) {
 $check_stmt->close();
 
 // Update donor
-$update_query = "UPDATE donors SET name = ?, email = ?, phone = ?, updated_at = CURRENT_TIMESTAMP WHERE donor_id = ?";
+$update_query = "UPDATE donors SET name = ?, email = ?, phone = ?, country = ?, city = ?, updated_at = CURRENT_TIMESTAMP WHERE donor_id = ?";
 $update_stmt = $conn->prepare($update_query);
 
 if (!$update_stmt) {
@@ -116,7 +118,7 @@ if (!$update_stmt) {
     exit();
 }
 
-$update_stmt->bind_param("sssi", $name, $email, $phone, $donor_id);
+$update_stmt->bind_param("sssssi", $name, $email, $phone, $country, $city, $donor_id);
 
 if ($update_stmt->execute()) {
     echo json_encode([
@@ -127,6 +129,8 @@ if ($update_stmt->execute()) {
             'name' => $name,
             'email' => $email,
             'phone' => $phone,
+            'country' => $country,
+            'city' => $city,
             'updated_at' => date('Y-m-d H:i:s')
         ]
     ]);

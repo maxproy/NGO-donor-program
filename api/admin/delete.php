@@ -1,7 +1,7 @@
 <?php
 /**
  * Delete an existing message
- * POST /api/messages/delete.php
+ * POST /api/admin/delete.php
  */
 
 require_once '../../config/db.php';

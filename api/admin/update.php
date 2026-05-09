@@ -1,7 +1,7 @@
 <?php
 /**
  * Update an existing donor
- * POST /api/donors/update.php
+ * POST /api/admin/update.php
  */
 
 require_once '../../config/db.php';

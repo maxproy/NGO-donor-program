@@ -88,12 +88,16 @@ function renderProfileUI(user) {
     document.getElementById('viewEmail').textContent = user.email;
     document.getElementById('viewPhone').textContent = user.phone || 'N/A';
     document.getElementById('viewIdNo').textContent = user.id_no || 'N/A';
+    if (document.getElementById('viewCountry')) document.getElementById('viewCountry').textContent = user.country || 'N/A';
+    if (document.getElementById('viewCity')) document.getElementById('viewCity').textContent = user.city || 'N/A';
 
     // Update Edit Form fields
     document.getElementById('editName').value = user.name;
     document.getElementById('editEmail').value = user.email;
     document.getElementById('editPhone').value = user.phone || '';
     document.getElementById('editIdNo').value = user.id_no || '';
+    if (document.getElementById('editCountry')) document.getElementById('editCountry').value = user.country || '';
+    if (document.getElementById('editCity')) document.getElementById('editCity').value = user.city || '';
     document.getElementById('editPassword').value = ''; // Always empty on load
 
     // Prevent duplicate event listeners if this is called multiple times
@@ -108,6 +112,8 @@ function renderProfileUI(user) {
         formData.append('email', document.getElementById('editEmail').value);
         formData.append('phone', document.getElementById('editPhone').value);
         formData.append('id_no', document.getElementById('editIdNo').value);
+        if (document.getElementById('editCountry')) formData.append('country', document.getElementById('editCountry').value);
+        if (document.getElementById('editCity')) formData.append('city', document.getElementById('editCity').value);
         formData.append('password', document.getElementById('editPassword').value);
 
         const res = await fetch('../api/donors/update_profile.php', { method: 'POST', body: formData, credentials: 'include' });
