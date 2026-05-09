@@ -24,6 +24,7 @@ async function renderMessages() {
           messagesList = result.data;
           messagesList.forEach((msg) => {
               const date = new Date(msg.created_at).toLocaleDateString();
+              const currentStatus = msg.status || 'unread'; // Safely handle older NULL records
               table.innerHTML += `
                 <tr>
                   <td>${escapeHTML(msg.name)}</td>
@@ -31,14 +32,14 @@ async function renderMessages() {
                   <td>${escapeHTML(msg.subject)}</td>
                   <td>${date}</td>
                   <td>
-                    <span style="font-weight: bold; color: ${msg.status === 'unread' ? '#ff9800' : '#1f7a4c'};">
-                        ${msg.status.charAt(0).toUpperCase() + msg.status.slice(1)}
+                    <span style="font-weight: bold; color: ${currentStatus === 'unread' ? '#ff9800' : '#1f7a4c'};">
+                        ${currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
                     </span>
                   </td>
                   <td>
                     <button class="action-btn edit-btn" onclick="viewMessage(${msg.message_id})">View</button>
-                    ${msg.status === 'unread' ? `<button class="action-btn edit-btn" onclick="updateMessageStatus(${msg.message_id}, 'read')">Mark Read</button>` : ''}
-                    ${msg.status !== 'replied' ? `<button class="action-btn edit-btn" onclick="updateMessageStatus(${msg.message_id}, 'replied')">Replied</button>` : ''}
+                    ${currentStatus === 'unread' ? `<button class="action-btn edit-btn" onclick="updateMessageStatus(${msg.message_id}, 'read')">Mark Read</button>` : ''}
+                    ${currentStatus !== 'replied' ? `<button class="action-btn edit-btn" onclick="updateMessageStatus(${msg.message_id}, 'replied')">Replied</button>` : ''}
                     <button class="action-btn delete-btn" onclick="deleteMessage(${msg.message_id})">Delete</button>
                   </td>
                 </tr>
