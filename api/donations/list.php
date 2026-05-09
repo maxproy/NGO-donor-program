@@ -10,6 +10,7 @@ require_once '../../includes/session.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405);
     echo json_encode([
         'success' => false,
         'message' => 'Invalid request method'
@@ -19,6 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 // Get filter parameters
 $donor_id = isset($_GET['donor_id']) ? intval($_GET['donor_id']) : null;
+
+// Security Check: Admins see all, but normal users can ONLY see their own records.
+if (!isAdminLoggedIn()) {
+    if (!isLoggedIn() || $donor_id != getUserId()) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access']);
+        exit();
+    }
+    // Force donor_id to match the logged-in user
+    $donor_id = getUserId();
+}
+
 $program = isset($_GET['program']) ? trim($_GET['program']) : null;
 $status = isset($_GET['status']) ? trim($_GET['status']) : null;
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 100;

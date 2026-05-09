@@ -14,10 +14,11 @@
     <h2>NGO PROJECT-IMPACT</h2>
     <ul>
       <li><a href="admin.html">Dashboard</a></li>
-        <li><a href="donors.html">Donors</a></li>
-        <li><a href="donations.html">Donations</a></li>
-        <li><a href="reports.html">Reports</a></li>
-        <li><a href="messages.html">Messages</a></li>
+                <li><a href="donors.html">Donors</a></li>
+                <li><a href="donations.html" class="active">Donations</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="#" onclick="adminLogout()">Logout</a></li>
     </ul>
   </aside>
 
@@ -35,8 +36,10 @@
         <thead>
           <tr>
             <th>Donor</th>
+            <th>Program</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -51,6 +54,7 @@
         <input type="hidden" id="donationId">
 
         <select id="donorSelect"></select>
+        <select id="programSelect"><option value="">Select Program</option></select>
         <input type="number" id="amount" placeholder="Amount">
         
         <div class="modal-actions">
@@ -66,4 +70,3 @@
 <script src="donations.js"></script>
 </body>
 </html>
-

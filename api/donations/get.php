@@ -10,10 +10,17 @@ require_once '../../includes/session.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405);
     echo json_encode([
         'success' => false,
         'message' => 'Invalid request method'
     ]);
+    exit();
+}
+
+if (!isAdminLoggedIn() && !isLoggedIn()) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit();
 }
 
@@ -60,6 +67,13 @@ if ($result->num_rows === 0) {
 }
 
 $donation = $result->fetch_assoc();
+
+// If it's a regular user, ensure they own the donation
+if (!isAdminLoggedIn() && $donation['donor_id'] != getUserId()) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => 'Access denied']);
+    exit();
+}
 
 // Decode payment details if it's JSON
 if (!empty($donation['payment_details'])) {

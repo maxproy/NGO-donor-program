@@ -14,7 +14,10 @@ function escapeHTML(str) {
 // Load and display messages
 async function renderMessages() {
   try {
-      const response = await fetch('../api/messages/list.php', { credentials: 'include' });
+      const response = await fetch('../api/messages/list.php', { 
+          credentials: 'include',
+          cache: 'no-store' // Force browser to pull fresh data from the database!
+      });
       const result = await response.json();
       
       const table = document.getElementById("messageTable");
@@ -55,42 +58,68 @@ async function renderMessages() {
 }
 
 // Handle form submission
-document.getElementById("messageForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const formData = new FormData();
-  formData.append("name", document.getElementById("senderName").value);
-  formData.append("email", document.getElementById("senderEmail").value);
-  formData.append("subject", document.getElementById("messageSubject").value);
-  formData.append("message", document.getElementById("messageBody").value);
-
-  try {
-      const response = await fetch('../api/messages/create.php', {
-          method: 'POST',
-          body: formData,
-          credentials: 'include'
-      });
-      const result = await response.json();
-
-      if (result.success) {
-          alert("Message saved successfully!");
-          this.reset();
-          renderMessages();
-      } else {
-          alert("Error: " + (result.message || "Could not save message."));
+const msgForm = document.getElementById("messageForm");
+if (msgForm) {
+    msgForm.addEventListener("submit", async function(e) {
+      e.preventDefault();
+    
+      const formData = new FormData();
+      formData.append("name", document.getElementById("senderName").value);
+      formData.append("email", document.getElementById("senderEmail").value);
+      formData.append("subject", document.getElementById("messageSubject").value);
+      formData.append("message", document.getElementById("messageBody").value);
+    
+      try {
+          const response = await fetch('../api/messages/create.php', {
+              method: 'POST',
+              body: formData,
+              credentials: 'include'
+          });
+          const result = await response.json();
+    
+          if (result.success) {
+              alert("Message saved successfully!");
+              this.reset();
+              renderMessages();
+          } else {
+              alert("Error: " + (result.message || "Could not save message."));
+          }
+      } catch (error) {
+          console.error("Error saving message:", error);
+          alert("An error occurred while saving the message.");
       }
-  } catch (error) {
-      console.error("Error saving message:", error);
-      alert("An error occurred while saving the message.");
-  }
-});
+    });
+}
 
 // View message details
 function viewMessage(id) {
   const msg = messagesList.find(m => m.message_id == id);
   if (msg) {
-      alert(`From: ${msg.name}\nEmail: ${msg.email}\nSubject: ${msg.subject}\nDate: ${new Date(msg.created_at).toLocaleString()}\n\nMessage:\n${msg.message}`);
+      // Populate modal
+      document.getElementById('modalSubject').textContent = msg.subject || 'No Subject';
+      document.getElementById('modalFrom').textContent = msg.name;
+      document.getElementById('modalEmail').textContent = msg.email;
+      document.getElementById('modalDate').textContent = new Date(msg.created_at).toLocaleString();
+      document.getElementById('modalBody').textContent = msg.message;
+      
+      // Set up "Mark as Replied" button
+      document.getElementById('modalReplyBtn').onclick = () => {
+          updateMessageStatus(id, 'replied');
+          closeMessageModal();
+      };
+
+      // Show modal
+      document.getElementById('messageModal').style.display = 'flex';
+
+      // Automatically mark as read if currently unread
+      if (msg.status === 'unread' || !msg.status) {
+          updateMessageStatus(id, 'read');
+      }
   }
+}
+
+function closeMessageModal() {
+    document.getElementById('messageModal').style.display = 'none';
 }
 
 // Update Message Status

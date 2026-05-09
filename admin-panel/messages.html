@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="admin-auth.js"></script>
 </head>
 <body>
     <div class="container">
@@ -13,11 +14,12 @@
   <aside class="sidebar">
     <h2>NGO PROJECT-IMPACT</h2>
     <ul>
-      <li><a href="admin.html">Dashboard</a></li>
-        <li><a href="donors.html">Donors</a></li>
-        <li><a href="donations.html">Donations</a></li>
-        <li><a href="reports.html">Reports</a></li>
-        <li><a href="messages.html">Messages</a></li>
+       <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="donors.html">Donors</a></li>
+                <li><a href="donations.html">Donations</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="messages.html" class="active">Messages</a></li>
+                <li><a href="#" onclick="adminLogout()">Logout</a></li>
     </ul>
   </aside>
 
@@ -35,11 +37,27 @@
             <th>Email</th>
             <th>Subject</th>
             <th>Date</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody id="messageTable"></tbody>
       </table>
+    </div>
+
+    <!-- Message Reading Modal -->
+    <div id="messageModal" class="modal">
+      <div class="modal-content" style="width: 500px;">
+        <h2 id="modalSubject" style="color: #1f7a4c; margin-bottom: 15px;">Subject</h2>
+        <p style="margin-bottom: 5px;"><strong>From:</strong> <span id="modalFrom"></span> (<span id="modalEmail"></span>)</p>
+        <p style="margin-bottom: 15px;"><strong>Date:</strong> <span id="modalDate"></span></p>
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        <div id="modalBody" style="white-space: pre-wrap; line-height: 1.6; color: #444; min-height: 100px; max-height: 300px; overflow-y: auto;"></div>
+        <div class="modal-actions" style="margin-top: 25px;">
+          <button onclick="closeMessageModal()" class="cancel">Close Message</button>
+          <button id="modalReplyBtn" class="action-btn view" style="background: #2ecc71; color: white; padding: 10px 15px;">Mark as Replied</button>
+        </div>
+      </div>
     </div>
   </main>
 

@@ -19,7 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Get and sanitize input
-$donor_id = isset($_POST['donor_id']) ? intval($_POST['donor_id']) : (isLoggedIn() ? getUserId() : null);
+// Security check for Donor ID assignment
+if (isAdminLoggedIn()) {
+    $donor_id = isset($_POST['donor_id']) ? intval($_POST['donor_id']) : null; // Admins can assign to anyone
+} else {
+    $donor_id = isLoggedIn() ? getUserId() : null; // Users can ONLY assign to themselves
+}
+
 $program = trim($_POST['program'] ?? '');
 $donation_plan = trim($_POST['donation_plan'] ?? ''); // 'one-time' or 'monthly'
 $amount = isset($_POST['amount']) ? floatval($_POST['amount']) : 0;

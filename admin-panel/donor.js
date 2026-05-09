@@ -6,17 +6,31 @@ async function renderDonors() {
       const response = await fetch('../api/donors/list.php', { credentials: 'include' });
       const result = await response.json();
       
+      if (result.success && result.data) {
+          donorsList = result.data;
+          renderDonorsTable(donorsList);
+      } else {
+          document.getElementById("donorTable").innerHTML = "<tr><td colspan='6' style='text-align: center; padding: 20px;'>No donors found</td></tr>";
+      }
+  } catch (error) {
+      console.error("Error fetching donors:", error);
+      document.getElementById("donorTable").innerHTML = "<tr><td colspan='6' style='text-align: center; color: red;'>Failed to load data</td></tr>";
+  }
+}
+
+function renderDonorsTable(list) {
       const table = document.getElementById("donorTable");
       table.innerHTML = "";
 
-      if (result.success && result.data && result.data.length > 0) {
-          donorsList = result.data;
-          donorsList.forEach(donor => {
+      if (list.length > 0) {
+          list.forEach(donor => {
               table.innerHTML += `
                 <tr>
                   <td>${donor.name}</td>
                   <td>${donor.email}</td>
                   <td>${donor.phone || 'N/A'}</td>
+                  <td>${donor.country || 'N/A'}</td>
+                  <td>${donor.city || 'N/A'}</td>
                   <td>
                     <button class="action-btn edit-btn" onclick="editDonor(${donor.donor_id})">Edit</button>
                     <button class="action-btn delete-btn" onclick="deleteDonor(${donor.donor_id})">Delete</button>
@@ -25,13 +39,20 @@ async function renderDonors() {
               `;
           });
       } else {
-          table.innerHTML = "<tr><td colspan='4' style='text-align: center; padding: 20px;'>No donors found</td></tr>";
+          table.innerHTML = "<tr><td colspan='6' style='text-align: center; padding: 20px;'>No donors found matching search</td></tr>";
       }
-  } catch (error) {
-      console.error("Error fetching donors:", error);
-      document.getElementById("donorTable").innerHTML = "<tr><td colspan='4' style='text-align: center; color: red;'>Failed to load data</td></tr>";
-  }
 }
+
+// Search Donor filter
+document.getElementById("searchDonor")?.addEventListener("input", function() {
+    const term = this.value.toLowerCase();
+    const filtered = donorsList.filter(d => 
+        (d.name && d.name.toLowerCase().includes(term)) || 
+        (d.email && d.email.toLowerCase().includes(term)) || 
+        (d.phone && d.phone.toLowerCase().includes(term))
+    );
+    renderDonorsTable(filtered);
+});
 
 // Add or Update donor
 document.getElementById("donorForm").addEventListener("submit", async function(e) {

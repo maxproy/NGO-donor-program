@@ -1,7 +1,7 @@
 <?php
 /**
- * Delete an existing donor (admin only)
- * POST /api/donors/delete.php
+ * Delete a program (admin only)
+ * POST /api/programs/delete.php
  */
 
 require_once '../../config/db.php';
@@ -21,16 +21,15 @@ if (!isAdminLoggedIn()) {
     exit();
 }
 
-$donor_id = isset($_POST['donor_id']) ? intval($_POST['donor_id']) : null;
+$program_id = isset($_POST['program_id']) ? intval($_POST['program_id']) : 0;
 
-if (!$donor_id) {
+if ($program_id <= 0) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Donor ID is required']);
+    echo json_encode(['success' => false, 'message' => 'Program ID is required']);
     exit();
 }
 
-// Delete the donor
-$delete_query = "DELETE FROM donors WHERE donor_id = ?";
+$delete_query = "DELETE FROM programs WHERE program_id = ?";
 $stmt = $conn->prepare($delete_query);
 
 if (!$stmt) {
@@ -39,13 +38,13 @@ if (!$stmt) {
     exit();
 }
 
-$stmt->bind_param("i", $donor_id);
+$stmt->bind_param("i", $program_id);
 
 if ($stmt->execute() && $stmt->affected_rows > 0) {
-    echo json_encode(['success' => true, 'message' => 'Donor deleted successfully']);
+    echo json_encode(['success' => true, 'message' => 'Program deleted successfully']);
 } else {
     http_response_code(404);
-    echo json_encode(['success' => false, 'message' => 'Failed to delete donor or donor not found']);
+    echo json_encode(['success' => false, 'message' => 'Failed to delete program or program not found']);
 }
 
 $stmt->close();

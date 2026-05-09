@@ -15,6 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit();
 }
 
+if (!isAdminLoggedIn()) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized - Admin access required']);
+    exit();
+}
+
 // Retrieve messages ordered by the newest first
 $query = "SELECT message_id, name, email, subject, message, status, created_at, replied_at FROM messages ORDER BY created_at DESC";
 $result = $conn->query($query);

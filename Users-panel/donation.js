@@ -1,5 +1,29 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     
+    // 0. Fetch Programs from Database dynamically
+    try {
+        const progResponse = await fetch('../api/programs/list.php');
+        const progResult = await progResponse.json();
+        
+        if (progResult.success && progResult.data) {
+            const courseSelect = document.getElementById('COURSE');
+            if (courseSelect) {
+                courseSelect.innerHTML = '<option value="">Choose where your money goes...</option>';
+                
+                const activePrograms = progResult.data.filter(p => p.status === 'active');
+                activePrograms.forEach(prog => {
+                    const option = document.createElement('option');
+                    option.value = prog.name;
+                    const targetAmt = parseFloat(prog.target_amount);
+                    option.textContent = `${prog.name} (Goal: $${targetAmt.toLocaleString()})`;
+                    courseSelect.appendChild(option);
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching programs:', error);
+    }
+
     // 1. Auto-select the "Course" based on URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const courseParam = urlParams.get('course');

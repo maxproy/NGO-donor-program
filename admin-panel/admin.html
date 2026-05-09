@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="style.css">
-  <script src="admin-auth.js"></script>
+ <script src="admin-auth.js"></script>
 </head>
 <body>
 
@@ -14,12 +14,11 @@
   <aside class="sidebar">
     <h2>NGO PROJECT-IMPACT</h2>
     <ul>
-        <li><a href="admin.html">Dashboard</a></li>
+        <li><a href="admin.html" class="active">Dashboard</a></li>
         <li><a href="donors.html">Donors</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="reports.html">Reports</a></li>
         <li><a href="messages.html">Messages</a></li>
-
         <li><a href="#" onclick="adminLogout()">Logout</a></li>
     </ul>
   </aside>
@@ -57,9 +56,26 @@
             <th>Name</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody id="donationTable"></tbody>
+      </table>
+    </section>
+
+    <!-- Active Programs -->
+    <section class="table-section" style="margin-top: 30px;">
+      <h2>Active Programs Tracker</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Program</th>
+            <th>Target Goal</th>
+            <th>Amount Raised</th>
+            <th>Progress</th>
+          </tr>
+        </thead>
+        <tbody id="dashboardProgramTable"></tbody>
       </table>
     </section>
 

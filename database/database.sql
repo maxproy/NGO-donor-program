@@ -89,3 +89,29 @@ CREATE INDEX idx_donation_date ON donations(donation_date);
 CREATE INDEX idx_donation_status ON donations(status);
 CREATE INDEX idx_message_status ON messages(status);
 CREATE INDEX idx_program_status ON programs(status);
+
+-- Triggers to automatically update program target amounts
+DELIMITER //
+
+-- 1. When a new donation is inserted and marked as completed
+CREATE TRIGGER update_program_amount_on_insert
+AFTER INSERT ON donations
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'completed' THEN
+        UPDATE programs SET current_amount = current_amount + NEW.amount WHERE name = NEW.program;
+    END IF;
+END; //
+
+-- 2. When an existing donation's status is updated
+CREATE TRIGGER update_program_amount_on_update
+AFTER UPDATE ON donations
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'completed' AND OLD.status != 'completed' THEN
+        UPDATE programs SET current_amount = current_amount + NEW.amount WHERE name = NEW.program;
+    ELSEIF NEW.status != 'completed' AND OLD.status = 'completed' THEN
+        UPDATE programs SET current_amount = current_amount - OLD.amount WHERE name = OLD.program;
+    END IF;
+END; //
+DELIMITER ;
