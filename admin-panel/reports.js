@@ -35,36 +35,75 @@ document.addEventListener("DOMContentLoaded", async () => {
     const monthlyTotals = {};
 
     donations.forEach(d => {
-      const month = new Date(d.donation_date).toLocaleString("default", { month: "short" });
+      const date = new Date(d.donation_date);
+      const monthKey = date.toLocaleString("default", { month: "short" });
+      const monthIndex = date.getMonth();
 
-      if (!monthlyTotals[month]) {
-        monthlyTotals[month] = 0;
+      if (!monthlyTotals[monthIndex]) {
+        monthlyTotals[monthIndex] = { label: monthKey, total: 0 };
       }
 
-      monthlyTotals[month] += parseFloat(d.amount);
+      monthlyTotals[monthIndex].total += parseFloat(d.amount);
     });
+
+    const sortedMonthKeys = Object.keys(monthlyTotals)
+      .map(index => parseInt(index, 10))
+      .sort((a, b) => a - b);
+
+    const chartLabels = sortedMonthKeys.map(index => monthlyTotals[index].label);
+    const chartData = sortedMonthKeys.map(index => monthlyTotals[index].total);
 
     // Create chart
     const ctx = document.getElementById("donationChart");
     if (ctx) {
       new Chart(ctx, {
-        type: "bar",
+        type: "line",
         data: {
-          labels: Object.keys(monthlyTotals),
+          labels: chartLabels,
           datasets: [{
             label: "Donations ($)",
-            data: Object.values(monthlyTotals),
-            backgroundColor: "#1f7a4c",
+            data: chartData,
+            fill: true,
+            backgroundColor: "rgba(31, 122, 76, 0.15)",
             borderColor: "#1f7a4c",
-            borderWidth: 1
+            tension: 0.35,
+            pointBackgroundColor: "#1f7a4c",
+            pointBorderColor: "#ffffff",
+            pointBorderWidth: 2,
+            pointRadius: 5
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#2d2d2d',
+                font: {
+                  size: 14,
+                  weight: 600
+                }
+              }
+            }
+          },
           scales: {
+            x: {
+              ticks: {
+                color: '#2d2d2d'
+              },
+              grid: {
+                display: false
+              }
+            },
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks: {
+                color: '#2d2d2d'
+              },
+              grid: {
+                color: 'rgba(31, 122, 76, 0.12)'
+              }
             }
           }
         }
