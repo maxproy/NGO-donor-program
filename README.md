@@ -1,9 +1,9 @@
 # 🌍 NGO Project - Making a Difference in East Africa
 
 **Status:** Active Development  
-**Last Updated:** May 5, 2026  
+**Last Updated:** May 14, 2026  
 
-> **Vision:** To create a transparent, efficient, and donor-friendly platform that empowers humanitarian organizations to maximize their impact in East Africa by efficiently managing resources and maintaining strong donor relationships.
+> **Vision:** To create a transparent, efficient, and donor-friendly platform that empowers humanitarian organizations to maximize their impact in East Africa by efficiently managing resources and [...]
 
 ---
 
@@ -59,6 +59,15 @@ Place the project files in your server's web directory (e.g., `htdocs` for XAMPP
 *   **Database:** MySQL
 *   **Frontend:** HTML5, CSS3, JavaScript (ES6+ Asynchronous Fetch API)
 *   **Server Environment:** Apache/Nginx
+
+### Language Composition
+
+| Language   | Percentage |
+|------------|-----------|
+| JavaScript | 33.7%     |
+| PHP        | 30.2%     |
+| HTML       | 21.0%     |
+| CSS        | 15.1%     |
 
 ---
 
